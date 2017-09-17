@@ -46,6 +46,25 @@ class connection
 		}
 	}//construct ends
 
+
+	function user_login($user_username,$user_check_password){
+		$query = "SELECT user_username,user_password FROM user";
+		$login = $this->mysqli->query($this->mysqli,$query);
+		$array = mysqli_fetch_array($this->mysqli,$login);
+		if(mysqli_num_rows($con->mysqli,$array) > 0){
+			if(password_verify($user_check_password,$array['user_password'])){
+				echo "login success";
+			}
+			else{
+				echo "login failed";
+			}
+		}
+
+	}
+	function user_signup(){
+		
+	}
+
 	function get_user_header(){
 		?>
 		<link rel="stylesheet" type="text/css" href="<?php echo 'http://'.BASE_PATH; ?>/assets/bootstrap/css/bootstrap.min.css">

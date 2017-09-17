@@ -1,2 +1,2 @@
 <?php session_start(); ?>
-<?php  header("location:login/") ?>
+<?php  header("location:login/index.php") ?>

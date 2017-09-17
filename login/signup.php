@@ -3,20 +3,37 @@
 $con = new connection();
 
 if(isset($_POST['submit']) && $_POST['submit']=='signup'){
-	echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
-	echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_lastname']);
-	echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_gender']);
-	echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_age']);
-	echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_phone']);
-	echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_city']);
-	echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_state']);
-	echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_country']);
+	echo $user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
+
+	echo $user_lastname = mysqli_real_escape_string($con->mysqli,$_POST['user_lastname']);
+
+	echo $user_gender = mysqli_real_escape_string($con->mysqli,$_POST['user_gender']);
+
+	echo $user_age = mysqli_real_escape_string($con->mysqli,$_POST['user_age']);
+
+	echo $user_phone = mysqli_real_escape_string($con->mysqli,$_POST['user_phone']);
+
+	echo $user_city = mysqli_real_escape_string($con->mysqli,$_POST['user_city']);
+
+	echo $user_state = mysqli_real_escape_string($con->mysqli,$_POST['user_state']);
+
+	echo $user_country = mysqli_real_escape_string($con->mysqli,$_POST['user_country']);
+
+	echo $user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
 	echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
-	echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
-	
- 	echo $user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
- 	echo $user_password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']); 
- 	//$con->user_signup();
+	echo $user_password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']); 
+ 	$con->user_signup(
+ 	$user_firstname,
+	$user_lastname,
+	$user_gender,
+	$user_age,
+	$user_phone,
+	$user_city,
+	$user_state,
+	$user_country,
+	$user_username,
+	$user_email,
+	$user_password);
 
 }
 ?>
@@ -40,24 +57,39 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 
 	<section class="container">
 			<section class="signup-form">
-				<form method="post" action="" role="login">
+				<form method="post" action="" role="login" enctype="multipart/form-data">
 					<img src="assets/images/logo2.png" class="img-responsive" alt="" />
+
 					<h2 class="h2" align="center">SignUpForm</h2>
 					<input type="text" name="user_firstname" placeholder="Firstname" required class="form-control input-lg">
+
 					<input type="text" name="user_lastname" placeholder="LastName" required class="form-control input-lg">
+
 					<input type="radio" name="user_gender" value="1">
 					Male
 					<input type="radio" name="user_gender" value="0">
 					Female
 					<br>
+
 					<input type="number" name="user_age" placeholder="Age" required class="form-control input-lg">
+
 					Date Of Birth
 					<input type="date" name="user_dob" required class="form-control input-lg">
-					<br>
+
 					<input type="text" name="user_phone" required class="form-control input-lg" placeholder="Phone Number">
+
+					<input type="text" name="user_city" required class="form-control input-lg" placeholder="City">
+
+					<input type="text" name="user_state" required class="form-control input-lg" placeholder="State">
+
+					<input type="text" name="user_country" required class="form-control input-lg" placeholder="Country">
+
 					<input type="text" name="user_username" required class="form-control input-lg" placeholder="UserName">
+
 					<input type="email" name="user_email" placeholder="Email" required class="form-control input-lg" />
+
 					<input type="password" name="user_password" placeholder="Password" required class="form-control input-lg" />
+
 					<button type="submit" name="submit" class="btn btn-lg btn-primary btn-block" value="signup">Sign Up</button>
 					<div>
 						<a href="signup.php">Create account</a> or <a href="#">reset password</a>

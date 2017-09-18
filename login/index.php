@@ -3,8 +3,8 @@
 $con = new connection();
 
 if(isset($_POST['submit']) && $_POST['submit']=='login'){
-	echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
- 	//echo $user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
+	//echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
+ 	echo $user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
  	echo $user_password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']); 
  	$con->user_login($user_username,$user_password);
 
@@ -33,11 +33,11 @@ if(isset($_POST['submit']) && $_POST['submit']=='login'){
 				<form method="post" action="" role="login">
 					<img src="assets/images/logo2.png" class="img-responsive" alt="" />
 					<h2 class="h2" align="center">LoginForm</h2>
-					<input type="email" name="user_email" placeholder="Email" required class="form-control input-lg" />
+					<input type="text" name="user_username" placeholder="Username" required class="form-control input-lg" />
 					<input type="password" name="user_password" placeholder="Password" required class="form-control input-lg" />
 					<button type="submit" name="submit" class="btn btn-lg btn-primary btn-block" value="login">Sign in</button>
 					<div>
-						<a href="signup.php">Create account</a> or <a href="#">reset password</a>
+						<a href="signup.php">Not Memeber ?</a> or <a href="#">reset password</a>
 					</div>
 				</form>
 				<!--<div class="form-links">

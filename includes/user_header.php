@@ -1,3 +1,9 @@
-<header>
-	<h1 class="h1">This is Header</h1>
-</header>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SimpleApp</title>
+</head>
+<body>
+	<div class="header">
+		
+	</div>

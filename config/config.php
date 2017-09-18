@@ -16,7 +16,7 @@ echo __NAMESPACE__  ;
 echo "<br>";*/
 define('BASE_URL',str_replace(array('config'),'',__DIR__));
 //echo BASE_URL;
-define('BASE_PATH',$_SERVER['HTTP_HOST'].str_replace(array('config'),'',dirname($_SERVER['SCRIPT_NAME'])));
+define('BASE_PATH',$_SERVER['HTTP_HOST'].str_replace(array('config','user','admin'),'',dirname($_SERVER['SCRIPT_NAME'])));
 //echo '<br>';
 //echo BASE_PATH;
 //echo "<br>";
@@ -48,21 +48,90 @@ class connection
 
 
 	function user_login($user_username,$user_check_password){
-		$query = "SELECT user_username,user_password FROM user";
-		$login = $this->mysqli->query($this->mysqli,$query);
-		$array = mysqli_fetch_array($this->mysqli,$login);
-		if(mysqli_num_rows($con->mysqli,$array) > 0){
-			if(password_verify($user_check_password,$array['user_password'])){
-				echo "login success";
+		$query = "SELECT * FROM user";
+		$login = mysqli_query($this->mysqli,$query);
+		$array = mysqli_fetch_array($login);
+
+		if($array['user_status'] == 0){
+			echo "<script type='text/javascript'>alert('Admin has Deacativate You . Contact Admin');</script>";
+			header("location:index.php");
+		}
+		else{
+			if(mysqli_num_rows($login) == 1){
+				if(($array['user_username'] == $user_username) && ($array['user_password'] == $user_check_password)){
+					if($array['user_type'] == 'admin'){
+						header("location:index.php");
+					}
+					else{
+						header("location:../user/index.php");
+					}
+				}
+				else{
+					echo "login failed";
+				}
 			}
 			else{
 				echo "login failed";
 			}
-		}
 
-	}
-	function user_signup(){
+			}//else of status end
+
+		}//function end
 		
+
+	function user_signup(
+		$user_firstname,
+		$user_lastname,
+		$user_gender,
+		$user_age,
+		$user_dob,
+		$user_phone,
+		$user_city,
+		$user_state,
+		$user_country,
+		$user_email,
+		$user_username,
+		$user_password){
+		
+
+		$insert_query = "
+		INSERT INTO user
+		(user_firstname,
+		user_lastname,
+		user_gender,
+		user_age,
+		user_dob,
+		user_phone,
+		user_city,
+		user_state,
+		user_country,
+		user_email,
+		user_username,
+		user_password,
+		user_status)
+		VALUES(
+		'$user_firstname',
+		'$user_lastname',
+		$user_gender,
+		$user_age,
+		$user_dob,
+		$user_phone,
+		'$user_city',
+		'$user_state',
+		'$user_country',
+		'$user_email',
+		'$user_username',
+		'$user_password',
+		1)
+		";
+		//echo "<br><br>";
+		$query = mysqli_query($this->mysqli,$insert_query);
+		if($query){
+			header();
+		}else{
+			echo "<h2 class='text-danger'> UserName Already Exists Or Something Wrong</h2>";
+			echo mysqli_error($this->mysqli);
+		}
 	}
 
 	function get_user_header(){
@@ -80,6 +149,23 @@ class connection
 		<script src="<?php echo 'http://'.BASE_PATH; ?>/assets/js/my.js"></script>
 		<?php
 		require_once(BASE_URL.'/includes/user_footer.php');
+	}
+
+	function get_admin_header(){
+		?>
+		<link rel="stylesheet" type="text/css" href="<?php echo 'http://'.BASE_PATH; ?>/admin/assets/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo '
+		http://'.BASE_PATH; ?>/admin/assets/css/my.css">
+		<?php
+		require_once(BASE_URL.'/admin/admin_includes/admin_header.php');
+	}
+	function get_admin_footer(){
+		?>
+		<script src="<?php echo 'http://'.BASE_PATH; ?>/admin/assets/js/jquery/jquery.min.js"></script>
+		<script src="<?php echo 'http://'.BASE_PATH; ?>/admin/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="<?php echo 'http://'.BASE_PATH; ?>/admin/assets/js/my.js"></script>
+		<?php
+		require_once(BASE_URL.'/admin/admin_includes/admin_footer.php');
 	}
 }//class connection ends
 ?>

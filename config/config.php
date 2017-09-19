@@ -14,7 +14,7 @@ echo __LINE__  ;
 echo "<br>";
 echo __NAMESPACE__  ;
 echo "<br>";*/
-define('BASE_URL',str_replace(array('config'),'',__DIR__));
+echo define('BASE_URL',str_replace(array('config'),'',__DIR__));
 //echo BASE_URL;
 define('BASE_PATH',$_SERVER['HTTP_HOST'].str_replace(array('config','user','admin'),'',dirname($_SERVER['SCRIPT_NAME'])));
 //echo '<br>';
@@ -136,11 +136,8 @@ class connection
 
 	function get_user_header(){
 		?>
-		<link rel="stylesheet" type="text/css" href="<?php echo 'http://'.BASE_PATH; ?>/assets/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="<?php echo '
-		http://'.BASE_PATH; ?>/assets/css/my.css">
 		<?php
-		require_once(BASE_URL.'/includes/user_header.php');
+		require_once(BASE_URL.'user/user_includes/user_header.php');
 	}
 	function get_user_footer(){
 		?>

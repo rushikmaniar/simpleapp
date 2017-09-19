@@ -1,4 +1,105 @@
+<?php session_start(); 
 
+?>
+<?php require_once('../config/config.php');
+$con = new connection();
+$current_username = $_SESSION['user_username'];
+$query_for_id = "SELECT * FROM user WHERE user_username = '$current_username'";
+$q = mysqli_query($con->mysqli,$query_for_id);
+/*if($q){
+	echo "query success";
+}else{
+	echo mysqli_error($con->mysqli);
+	exit();
+}*/
+$user_array = mysqli_fetch_array($q);
+$current_id = $user_array['user_id'];
+
+if(isset($_POST['submit']) && $_POST['submit']=='update'){
+ 	
+ 		$user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
+		$user_lastname = mysqli_real_escape_string($con->mysqli,$_POST['user_lastname']);
+		$user_gender = mysqli_real_escape_string($con->mysqli,$_POST['user_gender']);
+		$user_age = mysqli_real_escape_string($con->mysqli,$_POST['user_age']);
+		$user_dob = mysqli_real_escape_string($con->mysqli,$_POST['user_dob']);
+		$user_phone = mysqli_real_escape_string($con->mysqli,$_POST['user_phone']);
+		$user_city = mysqli_real_escape_string($con->mysqli,$_POST['user_city']);
+		$user_state = mysqli_real_escape_string($con->mysqli,$_POST['user_state']);
+		$user_country = mysqli_real_escape_string($con->mysqli,$_POST['user_country']);
+		$user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
+		$user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
+		$password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']);
+		$user_password = $password;
+		
+
+ 	$con->user_update(
+ 		$user_firstname,
+		$user_lastname,
+		$user_gender,
+		$user_age,
+		$user_dob,
+		$user_phone,
+		$user_city,
+		$user_state,
+		$user_country,
+		$user_email,
+		$user_username,
+		$user_password,
+		$current_id
+ 	);
+
+ 	
+
+ 	if($_FILES['file']['error'] > 0) { echo 'Error during uploading, try again'; }
+	$maxWidth = 300;
+	$maxHeight = 300;
+
+	list($width, $height) = getimagesize($_FILES['file']['tmp_name']);
+
+	if ($width > $maxWidth || $height > $maxHeight) {
+    // Cancel upload
+		echo "<script type='text/javascript'> alert('file size Exceeds or Something Wrong') </script>";
+	}
+	else{
+		//We won't use $_FILES['file']['type'] to check the file extension for security purpose
+	
+	//Set up valid image extensions
+	$extsAllowed = array( 'jpg', 'jpeg', 'png', 'gif' );
+	
+	//Extract extention from uploaded file
+		//substr return ".jpg"
+		//Strrchr return "jpg"
+		
+	$extUpload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) ) ;
+
+	//Check if the uploaded file extension is allowed
+	
+	if (in_array($extUpload, $extsAllowed) ) { 
+	
+	//Upload the file on the server
+	//$name = "http://".BASE_PATH."/user/uploads/profile/images/".$last_id."_profile_pic";
+	$name = "uploads/profile/images/".$current_id."_profile_".$_FILES['file']['name'];
+	$result = move_uploaded_file($_FILES["file"]["tmp_name"], $name);
+	
+	if($result){
+		
+		$path = BASE_PATH."/user/".$name;
+		$query = "UPDATE user SET user_pic = '$path' WHERE user_id=$current_id";
+		$q = mysqli_query($con->mysqli,$query);
+		if($q){
+			echo "<font class='text-success'>Image Uploaded sucessfully</font>";
+		}
+		else{
+			echo mysqli_error($con->mysqli);
+		}
+	}
+		
+	} else { echo 'File is not valid. Please try again'; }
+	
+	}
+	}
+
+?>
 <html><!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -16,8 +117,7 @@
         <link rel="stylesheet" href="assets/fonts/stylesheet.css">
         <link rel="stylesheet" href="assets/css/font-awesome.min.css">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <!--        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">-->
-
+        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
 
         <!--For Plugins external css-->
         <link rel="stylesheet" href="assets/css/plugins.css" />
@@ -280,8 +380,78 @@
         <h4 class="modal-title">MY PROFILE</h4>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
+		<form method="post" action="" role="login" enctype="multipart/form-data">
+					<img src="assets/images/logo2.png" class="img-responsive" alt="" />
+
+					<h2 class="h2" align="center">Update Profile</h2>
+					<h5>Firstname</h5>
+					<input type="text" name="user_firstname" placeholder="Firstname" required class="form-control input-lg" value="<?php echo $user_array['user_firstname']?>">
+					<h5>Lastname</h5>
+					<input type="text" name="user_lastname" placeholder="LastName" required class="form-control input-lg" value="<?php echo $user_array['user_lastname']?>">
+					<br>
+					<h5>Update Pic</h5>
+					<label for="file"> Update Profile pic (max size : (160x160)) :  </label>
+					<br>
+					<button><img src="http://<?php echo $user_array['user_pic']; ?>">
+					<input type="file" name ="file">
+					</button> 
+					<br>
+					<h5>Gender</h5>
+					<?php 
+					if($user_array['user_gender'] == 1){
+						?>
+						<input type="radio" name="user_gender" value="1" checked="checked">
+						Male
+						<input type="radio" name="user_gender" value="0">
+						Female
+					<br>
+					<?php
+					}
+					else{
+						?>
+						<input type="radio" name="user_gender" value="1">
+						Male
+						<input type="radio" name="user_gender" value="0" checked="checked">
+						Female
+					<?php
+					}
+
+					?>
+					
+					<h5>Age</h5>
+					<input type="number" name="user_age" placeholder="Age" required class="form-control input-lg" value="<?php echo $user_array['user_age']?>">
+
+					<h5>Date Of Birth</h5>
+					<input type="date" name="user_dob" required class="form-control input-lg"
+					value="<?php echo $user_array['user_dob']; ?>">
+
+					<h5>Phone Number</h5>
+					<input type="text" name="user_phone" required class="form-control input-lg" placeholder="Phone Number" value="<?php echo $user_array['user_phone']?>">
+					<h5>Date Of Birth</h5>
+					
+					<input type="text" name="user_city" required class="form-control input-lg" placeholder="City" value="<?php echo $user_array['user_city']?>">
+					<h5>Date Of Birth</h5>
+
+					<input type="text" name="user_state" required class="form-control input-lg" placeholder="State" value="<?php echo $user_array['user_state']?>">
+					<h5>Date Of Birth</h5>
+
+					<input type="text" name="user_country" required class="form-control input-lg" placeholder="Country" value="<?php echo $user_array['user_country']?>">
+					<h5>Date Of Birth</h5>
+
+					<input type="email" name="user_email" placeholder="Email" required class="form-control input-lg" value="<?php echo $user_array['user_email']?>" />
+					<h5>Date Of Birth</h5>
+
+					<input type="text" name="user_username" required class="form-control input-lg" placeholder="UserName" value="<?php echo $user_array['user_username']?>">
+					<h5>Date Of Birth</h5>
+
+					<input type="password" name="user_password" placeholder="Password" required class="form-control input-lg" value="<?php echo $user_array['user_password']?>" />
+					<h5>Date Of Birth</h5>
+
+					<button type="submit" name="submit" class="btn btn-lg btn-primary btn-block" value="update">Update Profile</button>
+				</form>
+		</div>
+
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>

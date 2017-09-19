@@ -49,21 +49,28 @@ class connection
 
 
 	function user_login($user_username,$user_check_password){
-		$query = "SELECT * FROM user";
+		$query = "SELECT * FROM user
+		 WHERE user_username = '$user_username'
+		AND user_password = '$user_check_password'";
 		$login = mysqli_query($this->mysqli,$query);
-		$array = mysqli_fetch_array($login);
+		/*if($login){
 
+		}else{
+			echo mysqli_error($this->mysqli);
+		}*/
+		$array = mysqli_fetch_array($login);
 		if($array['user_status'] == 0){
 			echo "<script type='text/javascript'>alert('Admin has Deacativate You . Contact Admin');</script>";
 			header("location:index.php");
 		}
 		else{
-			if(mysqli_num_rows($login) == 1){
+			if(mysqli_num_rows($login) > 0){
 				if(($array['user_username'] == $user_username) && ($array['user_password'] == $user_check_password)){
 					if($array['user_type'] == 'admin'){
 						header("location:index.php");
 					}
 					else{
+						$_SESSION["user_username"] = $array['user_username'];
 						header("location:../user/index.php");
 					}
 				}

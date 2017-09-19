@@ -33,6 +33,57 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 		$user_username,
 		$user_password
  	);
+
+ 	$last_id = mysqli_insert_id($con->mysqli);
+
+ 	if($_FILES['file']['error'] > 0) { echo 'Error during uploading, try again'; }
+	$maxWidth = 300;
+	$maxHeight = 300;
+
+	list($width, $height) = getimagesize($_FILES['file']['tmp_name']);
+
+	if ($width > $maxWidth || $height > $maxHeight) {
+    // Cancel upload
+		echo "<script type='text/javascript'> alert('file size Exceeds or Something Wrong') </script>";
+	}
+	else{
+		//We won't use $_FILES['file']['type'] to check the file extension for security purpose
+	
+	//Set up valid image extensions
+	$extsAllowed = array( 'jpg', 'jpeg', 'png', 'gif' );
+	
+	//Extract extention from uploaded file
+		//substr return ".jpg"
+		//Strrchr return "jpg"
+		
+	$extUpload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) ) ;
+
+	//Check if the uploaded file extension is allowed
+	
+	if (in_array($extUpload, $extsAllowed) ) { 
+	
+	//Upload the file on the server
+	//$name = "http://".BASE_PATH."/user/uploads/profile/images/".$last_id."_profile_pic";
+	$name = "../user/uploads/profile/images/".$last_id."_profile_".$_FILES['file']['name'];
+	$result = move_uploaded_file($_FILES["file"]["tmp_name"], $name);
+	
+	if($result){
+		
+		$path = str_replace('../',BASE_PATH.'/',$name);
+		$query = "UPDATE user SET user_pic = '$path' WHERE user_id=$last_id";
+		$q = mysqli_query($con->mysqli,$query);
+		if($q){
+			echo "<font class='text-success'>Image Uploaded sucessfully</font>";
+		}
+		else{
+			echo mysqli_error($con->mysqli);
+		}
+	}
+		
+	} else { echo 'File is not valid. Please try again'; }
+	
+	}
+	
 }
 ?>
 <html>
@@ -62,6 +113,9 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 					<input type="text" name="user_firstname" placeholder="Firstname" required class="form-control input-lg">
 
 					<input type="text" name="user_lastname" placeholder="LastName" required class="form-control input-lg">
+					
+					<label for="file"> Upload Profile(max size : (160x160)) :  </label><br>
+					<input type="file" name ="file"> 
 
 					<input type="radio" name="user_gender" value="1">
 					Male

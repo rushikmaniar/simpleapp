@@ -49,9 +49,10 @@ class connection
 
 
 	function user_login($user_username,$user_check_password){
+
+
 		$query = "SELECT * FROM user
-		 WHERE user_username = '$user_username'
-		AND user_password = '$user_check_password'";
+		 WHERE user_username = '$user_username'";
 		$login = mysqli_query($this->mysqli,$query);
 		/*if($login){
 
@@ -65,7 +66,7 @@ class connection
 		}
 		else{
 			if(mysqli_num_rows($login) > 0){
-				if(($array['user_username'] == $user_username) && ($array['user_password'] == $user_check_password)){
+				if(password_verify($user_check_password,$array['user_password'])){
 					if($array['user_type'] == 'admin'){
 						header("location:index.php");
 					}

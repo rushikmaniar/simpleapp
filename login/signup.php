@@ -15,11 +15,11 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 		$user_country = mysqli_real_escape_string($con->mysqli,$_POST['user_country']);
 		$user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
 		$user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
-		$password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']);
-		$user_password = $password;
+		$user_password = password_hash(mysqli_real_escape_string($con->mysqli,$_POST['user_password']),PASSWORD_DEFAULT);
+	
 		
 
- 	$con->user_signup(
+ 	$insert = $con->user_signup(
  		$user_firstname,
 		$user_lastname,
 		$user_gender,
@@ -33,8 +33,8 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 		$user_username,
 		$user_password
  	);
-
- 	$last_id = mysqli_insert_id($con->mysqli);
+ 	if($insert){
+ 		$last_id = mysqli_insert_id($con->mysqli);
 
  	if($_FILES['file']['error'] > 0) { echo 'Error during uploading, try again'; }
 	$maxWidth = 300;
@@ -85,6 +85,11 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 	}
 	
 }
+ 	}else{
+ 		echo mysqli_error($insert);
+ 		echo "<font class='text-danger>Something Wrong</font>'"; 
+ 	}
+ 	
 ?>
 <html>
 <head>

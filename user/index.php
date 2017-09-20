@@ -30,9 +30,74 @@ if(isset($_POST['submit']) && $_POST['submit']=='update'){
 		$user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
 		$password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']);
 		$user_password = $password;
-		
+	
 
- 	$con->user_update(
+ 	
+
+ 	if(!file_exists($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
+   
+	}else{
+
+ 	if($_FILES['file']['error'] > 0) { echo 'Error during uploading, try again'; }
+	$maxWidth = 300;
+	$maxHeight = 300;
+
+	list($width, $height) = getimagesize($_FILES['file']['tmp_name']);
+
+	if ($width > $maxWidth || $height > $maxHeight) {
+    // Cancel upload
+		echo "<script type='text/javascript'> alert('file size Exceeds or Something Wrong') </script>";
+	}
+	else{
+		echo $data_path = $user_array['user_pic'];
+		$path = str_replace('localhost/github/simpleapp/user/','',$data_path);
+		//exit();
+		//exit();
+		if(unlink($path)){
+			//echo "<script>alert('delete success')</script>";
+			echo "delete success";
+			//exit();
+		}else{
+			echo "delete failed";
+			//exit();
+		}
+		//Set up valid image extensions
+		$extsAllowed = array( 'jpg', 'jpeg', 'png', 'gif' );
+		//Extract extention from uploaded file
+			//substr return ".jpg"
+			//Strrchr return "jpg"
+			
+		$extUpload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) ) ;
+
+		//Check if the uploaded file extension is allowed
+		
+		if (in_array($extUpload, $extsAllowed) ) { 
+		
+		//Upload the file on the server
+		//$name = "http://".BASE_PATH."/user/uploads/profile/images/".$last_id."_profile_pic";
+		$name = "uploads/profile/images/".$current_id."_profile_".$_FILES['file']['name'];
+		$result = move_uploaded_file($_FILES["file"]["tmp_name"], $name);
+		
+		if($result){
+			
+			$path = BASE_PATH."user/".$name;
+			$query = "UPDATE user SET user_pic = '$path' WHERE user_id=$current_id";
+			$q = mysqli_query($con->mysqli,$query);
+			if($q){
+				echo "<font class='text-success'>Image Uploaded sucessfully</font>";
+				header("location:index.php");
+			}
+			else{
+				echo mysqli_error($con->mysqli);
+			}
+		}
+			
+		} else { echo 'File is not valid. Please try again'; }
+		
+		}
+	
+
+		$con->user_update(
  		$user_firstname,
 		$user_lastname,
 		$user_gender,
@@ -48,54 +113,11 @@ if(isset($_POST['submit']) && $_POST['submit']=='update'){
 		$current_id
  	);
 
- 	
 
- 	if($_FILES['file']['error'] > 0) { echo 'Error during uploading, try again'; }
-	$maxWidth = 300;
-	$maxHeight = 300;
 
-	list($width, $height) = getimagesize($_FILES['file']['tmp_name']);
 
-	if ($width > $maxWidth || $height > $maxHeight) {
-    // Cancel upload
-		echo "<script type='text/javascript'> alert('file size Exceeds or Something Wrong') </script>";
-	}
-	else{
-		//We won't use $_FILES['file']['type'] to check the file extension for security purpose
-	
-	//Set up valid image extensions
-	$extsAllowed = array( 'jpg', 'jpeg', 'png', 'gif' );
-	
-	//Extract extention from uploaded file
-		//substr return ".jpg"
-		//Strrchr return "jpg"
-		
-	$extUpload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) ) ;
 
-	//Check if the uploaded file extension is allowed
-	
-	if (in_array($extUpload, $extsAllowed) ) { 
-	
-	//Upload the file on the server
-	//$name = "http://".BASE_PATH."/user/uploads/profile/images/".$last_id."_profile_pic";
-	$name = "uploads/profile/images/".$current_id."_profile_".$_FILES['file']['name'];
-	$result = move_uploaded_file($_FILES["file"]["tmp_name"], $name);
-	
-	if($result){
-		
-		$path = BASE_PATH."/user/".$name;
-		$query = "UPDATE user SET user_pic = '$path' WHERE user_id=$current_id";
-		$q = mysqli_query($con->mysqli,$query);
-		if($q){
-			echo "<font class='text-success'>Image Uploaded sucessfully</font>";
-		}
-		else{
-			echo mysqli_error($con->mysqli);
-		}
-	}
-		
-	} else { echo 'File is not valid. Please try again'; }
-	
+
 	}
 	}
 
@@ -427,25 +449,24 @@ if(isset($_POST['submit']) && $_POST['submit']=='update'){
 
 					<h5>Phone Number</h5>
 					<input type="text" name="user_phone" required class="form-control input-lg" placeholder="Phone Number" value="<?php echo $user_array['user_phone']?>">
-					<h5>Date Of Birth</h5>
+					<h5>City</h5>
 					
 					<input type="text" name="user_city" required class="form-control input-lg" placeholder="City" value="<?php echo $user_array['user_city']?>">
-					<h5>Date Of Birth</h5>
+					<h5>State</h5>
 
 					<input type="text" name="user_state" required class="form-control input-lg" placeholder="State" value="<?php echo $user_array['user_state']?>">
-					<h5>Date Of Birth</h5>
+					<h5>Country</h5>
 
 					<input type="text" name="user_country" required class="form-control input-lg" placeholder="Country" value="<?php echo $user_array['user_country']?>">
-					<h5>Date Of Birth</h5>
+					<h5>Email</h5>
 
 					<input type="email" name="user_email" placeholder="Email" required class="form-control input-lg" value="<?php echo $user_array['user_email']?>" />
-					<h5>Date Of Birth</h5>
+					<h5>UserName</h5>
 
 					<input type="text" name="user_username" required class="form-control input-lg" placeholder="UserName" value="<?php echo $user_array['user_username']?>">
-					<h5>Date Of Birth</h5>
+					<h5>Password</h5>
 
 					<input type="password" name="user_password" placeholder="Password" required class="form-control input-lg" value="<?php echo $user_array['user_password']?>" />
-					<h5>Date Of Birth</h5>
 
 					<button type="submit" name="submit" class="btn btn-lg btn-primary btn-block" value="update">Update Profile</button>
 				</form>

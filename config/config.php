@@ -142,6 +142,46 @@ class connection
 		}
 	}
 
+
+	function user_update(
+ 		$user_firstname,
+		$user_lastname,
+		$user_gender,
+		$user_age,
+		$user_dob,
+		$user_phone,
+		$user_city,
+		$user_state,
+		$user_country,
+		$user_email,
+		$user_username,
+		$user_password,
+		$current_id
+	){
+		$update_query = "UPDATE user 
+		SET user_firstname = '$user_firstname',
+			user_lastname = '$user_lastname',
+			user_gender = $user_gender,
+			user_age = $user_age,
+			user_dob = '$user_dob',
+			user_phone = $user_phone,
+			user_city = '$user_city',
+			user_state = '$user_state',
+			user_country = '$user_country',
+			user_email = '$user_email',
+			user_username = '$user_username',
+			user_password = '$user_password'
+			WHERE user_id = $current_id
+		 ";
+		 $q = mysqli_query($this->mysqli,$update_query);
+		
+		if($q){
+			echo "<script>alert('update success');</script>";
+		}else{
+			echo mysqli_error($this->mysqli);
+		}
+	}
+
 	function get_user_header(){
 
 	}

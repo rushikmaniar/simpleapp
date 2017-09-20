@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php require_once('../config/config.php');
 $con = new connection();
-
+$insert_func;
 if(isset($_POST['submit']) && $_POST['submit']=='signup'){
  	
  		$user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
@@ -19,7 +19,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 	
 		
 
- 	$insert = $con->user_signup(
+ 	$insert_func = $con->user_signup(
  		$user_firstname,
 		$user_lastname,
 		$user_gender,
@@ -86,7 +86,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 	
 }
  	}else{
- 		echo mysqli_error($insert);
+ 		echo mysqli_error($insert_func);
  		echo "<font class='text-danger>Something Wrong</font>'"; 
  	}
  	

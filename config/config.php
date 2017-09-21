@@ -31,6 +31,7 @@ define('BASE_PATH',$_SERVER['HTTP_HOST'].str_replace(array('config','user','admi
 class connection
 {
 	public $mysqli;
+	public $insert_func;
 	public $signup_query;
 	function __construct()
 	{
@@ -59,6 +60,7 @@ class connection
 		}else{
 			echo mysqli_error($this->mysqli);
 		}*/
+		
 		$array = mysqli_fetch_array($login);
 		if($array['user_status'] == 0){
 			echo "<script type='text/javascript'>alert('Admin has Deacativate You . Contact Admin');</script>";
@@ -123,7 +125,7 @@ class connection
 		'$user_lastname',
 		$user_gender,
 		$user_age,
-		$user_dob,
+		'$user_dob',
 		$user_phone,
 		'$user_city',
 		'$user_state',
@@ -144,7 +146,7 @@ class connection
 	}
 
 
-	function user_update(
+	function user_update_with_password(
  		$user_firstname,
 		$user_lastname,
 		$user_gender,
@@ -171,7 +173,45 @@ class connection
 			user_country = '$user_country',
 			user_email = '$user_email',
 			user_username = '$user_username',
-			user_password = '$user_password'
+			user_password = '$user_password',
+			WHERE user_id = $current_id
+		 ";
+		 $q = mysqli_query($this->mysqli,$update_query);
+		
+		if($q){
+			echo "<script>alert('update success');</script>";
+		}else{
+			echo mysqli_error($this->mysqli);
+		}
+	}
+
+	//without Password
+	function user_update_without_password(
+ 		$user_firstname,
+		$user_lastname,
+		$user_gender,
+		$user_age,
+		$user_dob,
+		$user_phone,
+		$user_city,
+		$user_state,
+		$user_country,
+		$user_email,
+		$user_username,
+		$current_id
+	){
+		$update_query = "UPDATE user 
+		SET user_firstname = '$user_firstname',
+			user_lastname = '$user_lastname',
+			user_gender = $user_gender,
+			user_age = $user_age,
+			user_dob = '$user_dob',
+			user_phone = $user_phone,
+			user_city = '$user_city',
+			user_state = '$user_state',
+			user_country = '$user_country',
+			user_email = '$user_email',
+			user_username = '$user_username'
 			WHERE user_id = $current_id
 		 ";
 		 $q = mysqli_query($this->mysqli,$update_query);

@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php require_once('../config/config.php');
 $con = new connection();
-$insert_func;
+
 if(isset($_POST['submit']) && $_POST['submit']=='signup'){
  	
  		$user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
@@ -19,7 +19,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 	
 		
 
- 	$insert_func = $con->user_signup(
+ 	$con->insert_func = $con->user_signup(
  		$user_firstname,
 		$user_lastname,
 		$user_gender,
@@ -33,7 +33,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 		$user_username,
 		$user_password
  	);
- 	if($insert){
+ 	if($con->insert_func){
  		$last_id = mysqli_insert_id($con->mysqli);
 
  	if($_FILES['file']['error'] > 0) { echo 'Error during uploading, try again'; }
@@ -86,7 +86,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 	
 }
  	}else{
- 		echo mysqli_error($insert_func);
+ 		echo mysqli_error($con->mysqli);
  		echo "<font class='text-danger>Something Wrong</font>'"; 
  	}
  	

@@ -1,3 +1,9 @@
+var len = $("#user_oldpassword").val();
+if (len > 0) {
+    $('#new_password').attr('required', 'required');
+}else{
+    $('#new_password').removeAttr('required');
+}
 "use strict";
 
 
@@ -126,3 +132,5 @@ jQuery(document).ready(function ($) {
 
     //End
 });
+
+

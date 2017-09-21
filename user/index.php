@@ -1,8 +1,12 @@
 <?php session_start(); 
-
+	if(!isset($_SESSION['user_username'])){
+	echo "hello";
+	header("location:../index.php");
+}
 ?>
 <?php require_once('../config/config.php');
 $con = new connection();
+
 $current_username = $_SESSION['user_username'];
 $query_for_id = "SELECT * FROM user WHERE user_username = '$current_username'";
 $q = mysqli_query($con->mysqli,$query_for_id);
@@ -14,112 +18,140 @@ $q = mysqli_query($con->mysqli,$query_for_id);
 }*/
 $user_array = mysqli_fetch_array($q);
 $current_id = $user_array['user_id'];
-
+//if submit button click
 if(isset($_POST['submit']) && $_POST['submit']=='update'){
- 	
- 		$user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
-		$user_lastname = mysqli_real_escape_string($con->mysqli,$_POST['user_lastname']);
-		$user_gender = mysqli_real_escape_string($con->mysqli,$_POST['user_gender']);
-		$user_age = mysqli_real_escape_string($con->mysqli,$_POST['user_age']);
-		$user_dob = mysqli_real_escape_string($con->mysqli,$_POST['user_dob']);
-		$user_phone = mysqli_real_escape_string($con->mysqli,$_POST['user_phone']);
-		$user_city = mysqli_real_escape_string($con->mysqli,$_POST['user_city']);
-		$user_state = mysqli_real_escape_string($con->mysqli,$_POST['user_state']);
-		$user_country = mysqli_real_escape_string($con->mysqli,$_POST['user_country']);
-		$user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
-		$user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
-		$password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']);
-		$user_password = $password;
 	
+	$user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
+	$user_lastname = mysqli_real_escape_string($con->mysqli,$_POST['user_lastname']);
+	$user_gender = mysqli_real_escape_string($con->mysqli,$_POST['user_gender']);
+	$user_age = mysqli_real_escape_string($con->mysqli,$_POST['user_age']);
+	$user_dob = mysqli_real_escape_string($con->mysqli,$_POST['user_dob']);
+	$user_phone = mysqli_real_escape_string($con->mysqli,$_POST['user_phone']);
+	$user_city = mysqli_real_escape_string($con->mysqli,$_POST['user_city']);
+	$user_state = mysqli_real_escape_string($con->mysqli,$_POST['user_state']);
+	$user_country = mysqli_real_escape_string($con->mysqli,$_POST['user_country']);
+	$user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
+	$user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
 
- 	
-
- 	if(!file_exists($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
-   
-	}else{
-
- 	if($_FILES['file']['error'] > 0) { echo 'Error during uploading, try again'; }
-	$maxWidth = 300;
-	$maxHeight = 300;
-
-	list($width, $height) = getimagesize($_FILES['file']['tmp_name']);
-
-	if ($width > $maxWidth || $height > $maxHeight) {
-    // Cancel upload
-		echo "<script type='text/javascript'> alert('file size Exceeds or Something Wrong') </script>";
-	}
-	else{
-		echo $data_path = $user_array['user_pic'];
-		$path = str_replace('localhost/github/simpleapp/user/','',$data_path);
+	//if old password set
+	if((isset($_POST['user_oldpassword'])) && (isset($_POST['new_password']))){
+		echo "done";
 		//exit();
-		//exit();
-		if(unlink($path)){
-			//echo "<script>alert('delete success')</script>";
-			echo "delete success";
-			//exit();
-		}else{
-			echo "delete failed";
-			//exit();
-		}
-		//Set up valid image extensions
-		$extsAllowed = array( 'jpg', 'jpeg', 'png', 'gif' );
-		//Extract extention from uploaded file
-			//substr return ".jpg"
-			//Strrchr return "jpg"
-			
-		$extUpload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) ) ;
+		$old_password = mysqli_real_escape_string($con->mysqli,$_POST['user_oldpassword']);
+	 		//if old password matches with databse then updat
+	 		if(password_verify($old_password,$user_array['user_password'])){
+				echo $new_password = password_hash(mysqli_real_escape_string($con->mysqli,$_POST['new_password']),PASSWORD_DEFAULT);
+				exit();
+				//check if file exits
+ 				if(!file_exists($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
+   					//echo "File Not Exits";
+   					// Nothing To Do
+				}else{
+					//check if file uploaded
+ 					if($_FILES['file']['error'] > 0) { 
+ 						echo 'Error during uploading, try again'; 
+ 					}
+					$maxWidth = 300;
+					$maxHeight = 300;
+					list($width, $height) = getimagesize($_FILES['file']['tmp_name']);
+					//check if len and width proper
+					if ($width > $maxWidth || $height > $maxHeight) {
+				    // Cancel upload
+						echo "<script type='text/javascript'> alert('file size Exceeds or Something Wrong') </script>";
+					}
+					else{
+						echo $data_path = $user_array['user_pic'];
+						$path = str_replace('localhost/github/simpleapp/user/','',$data_path);
+						if(unlink($path)){
+							//echo "<script>alert('delete success')</script>";
+							echo "delete success";
+							//exit();
+						}else{
+							echo "delete failed";
+							//exit();
+						}
 
-		//Check if the uploaded file extension is allowed
-		
-		if (in_array($extUpload, $extsAllowed) ) { 
-		
-		//Upload the file on the server
-		//$name = "http://".BASE_PATH."/user/uploads/profile/images/".$last_id."_profile_pic";
-		$name = "uploads/profile/images/".$current_id."_profile_".$_FILES['file']['name'];
-		$result = move_uploaded_file($_FILES["file"]["tmp_name"], $name);
-		
-		if($result){
-			
-			$path = BASE_PATH."user/".$name;
-			$query = "UPDATE user SET user_pic = '$path' WHERE user_id=$current_id";
-			$q = mysqli_query($con->mysqli,$query);
-			if($q){
-				echo "<font class='text-success'>Image Uploaded sucessfully</font>";
-				header("location:index.php");
+						//Set up valid image extensions
+						$extsAllowed = array( 'jpg', 'jpeg', 'png', 'gif' );
+						//Extract extention from uploaded file
+							//substr return ".jpg"
+							//Strrchr return "jpg"
+							
+						$extUpload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) ) ;
+
+						//Check if the uploaded file extension is allowed
+						//check if file extension valid
+						if (in_array($extUpload, $extsAllowed) ) { 
+							
+							//Upload the file on the server
+							//$name = "http://".BASE_PATH."/user/uploads/profile/images/".$last_id."_profile_pic";
+							$name = "uploads/profile/images/".$current_id."_profile_".$_FILES['file']['name'];
+							$result = move_uploaded_file($_FILES["file"]["tmp_name"], $name);
+						
+							if($result){
+								
+								$path = BASE_PATH."user/".$name;
+								$query = "UPDATE user SET user_pic = '$path' WHERE user_id=$current_id";
+								$q = mysqli_query($con->mysqli,$query);
+								if($q){
+									echo "<font class='text-success'>Image Uploaded sucessfully</font>";
+									header("location:index.php");
+								}
+								else{
+									echo mysqli_error($con->mysqli);
+								}
+							}
+							else { 
+								echo 'File is not valid. Please try again';
+							}//$result end
+							
+						}//extension check end 
+					
+					}//file upload check end 
+				}//check of file exists close
+
+				$con->user_update_with_password(
+			 	$user_firstname,
+				$user_lastname,
+				$user_gender,
+				$user_age,
+				$user_dob,
+				$user_phone,
+				$user_city,
+				$user_state,
+				$user_country,
+				$user_email,
+				$user_username,
+				$new_password,
+				$current_id
+			 	);
+
 			}
-			else{
-				echo mysqli_error($con->mysqli);
-			}
-		}
-			
-		} else { echo 'File is not valid. Please try again'; }
-		
-		}
-	
+			//if old password not verify then
+	 		else{
+	 			echo "<font class='text-danger'>Old Password is Wrong</font>";
+	 		}
+	}//password set end
+else{
+	//without password function called
+	$con->user_update_without_password(
+			 	$user_firstname,
+				$user_lastname,
+				$user_gender,
+				$user_age,
+				$user_dob,
+				$user_phone,
+				$user_city,
+				$user_state,
+				$user_country,
+				$user_email,
+				$user_username,
+				$new_password,
+				$current_id
+			 	);
+}
 
-		$con->user_update(
- 		$user_firstname,
-		$user_lastname,
-		$user_gender,
-		$user_age,
-		$user_dob,
-		$user_phone,
-		$user_city,
-		$user_state,
-		$user_country,
-		$user_email,
-		$user_username,
-		$user_password,
-		$current_id
- 	);
-
-
-
-
-
-
-	}
-	}
+}//isset update end
 
 ?>
 <html><!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -449,24 +481,29 @@ if(isset($_POST['submit']) && $_POST['submit']=='update'){
 
 					<h5>Phone Number</h5>
 					<input type="text" name="user_phone" required class="form-control input-lg" placeholder="Phone Number" value="<?php echo $user_array['user_phone']?>">
-					<h5>City</h5>
 					
+					<h5>City</h5>
 					<input type="text" name="user_city" required class="form-control input-lg" placeholder="City" value="<?php echo $user_array['user_city']?>">
+					
 					<h5>State</h5>
-
 					<input type="text" name="user_state" required class="form-control input-lg" placeholder="State" value="<?php echo $user_array['user_state']?>">
+					
 					<h5>Country</h5>
-
 					<input type="text" name="user_country" required class="form-control input-lg" placeholder="Country" value="<?php echo $user_array['user_country']?>">
+					
 					<h5>Email</h5>
-
 					<input type="email" name="user_email" placeholder="Email" required class="form-control input-lg" value="<?php echo $user_array['user_email']?>" />
+					
 					<h5>UserName</h5>
-
 					<input type="text" name="user_username" required class="form-control input-lg" placeholder="UserName" value="<?php echo $user_array['user_username']?>">
-					<h5>Password</h5>
+					
+					<h5>Old Password</h5>
+					<input type="password" name="user_oldpassword" placeholder="Enter Old Password"
+					class="form-control input-lg" id="user_oldpassword">
 
-					<input type="password" name="user_password" placeholder="Password" required class="form-control input-lg" value="<?php echo $user_array['user_password']?>" />
+					<h5>New Password</h5>
+					<input type="password" name="new_password" placeholder="Enter New Passsword"
+					class="form-control input-lg" id="new_password" />
 
 					<button type="submit" name="submit" class="btn btn-lg btn-primary btn-block" value="update">Update Profile</button>
 				</form>
@@ -562,7 +599,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='update'){
 					<div class="main_footer">
 						<div class="col-sm-6 col-xs-12">
 							<div class="single_footer_left">
-								<p>Design: <strong>XpeedStudio</strong></p>
+								<p>Design: <strong>Rushik</strong></p>
 							</div>
 						</div>
 						<div class="col-sm-6 col-xs-12">

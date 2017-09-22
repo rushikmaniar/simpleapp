@@ -6,67 +6,60 @@
  <head>
  	<title>JSON</title>
  </head>
- <script src="jquery.min.js"></script>
- <script type="text/javascript">
-$(document).ready(function(){
-$("#submit").click(function(){
-var name = $("#name").val();
-//var email = $("#email").val();
-var password = $("#password").val();
-//var contact = $("#contact").val();
-// Returns successful data submission message when the entered information is stored in database.
-var dataString = 'name1='+ name + 'password1='+ password ;
-if(name==''||password=='')
-{
-alert("Please Fill All Fields");
-}
-else
-{
-// AJAX Code To Submit Form.
-	$.ajax({
-	datatype: "JSON",
-	type: 'get',
-	url: "sample1.php",
-	data: dataString,
-	cache: false,
-	/*success: function(data){
-	$("div").text(data);
-	},*/
-	success: function(response){
-            var len = response.length;
-            for(var i=0; i<len; i++){
-                var id = response[i].id;
-                var firstname = response[i].firstname;
-                var lastname = response[i].lastname;
-                var type = response[i].type;
+ <script src="jquery.min.js"></script>   
+ <script type="text/javascript">   
 
-                var tr_str = "<tr>" +
-                    "<td align='center'>" + (i+1) + "</td>" +
-                    "<td align='center'>" + firstname + "</td>" +
-                    "<td align='center'>" + lastname + "</td>" +
-                    "<td align='center'>" + type + "</td>" +
-                    "</tr>";
+function myfunc (){   
+    var name = $("#name").val();   
+    var password = $("#password").val();
+    //alert(name+password);
+    //var dataString = 'name1:'+ name + ',' + 'password1:'+ password ;
+    if(name==''||password=='')
+    {
+         alert("Please Fill All Fields");
+         return false;
+    }
+    else
+    {
+    $.ajax({
+    dataType: "json",
+    type: 'post',
+    url: "sample1.php",
+    data : {
+            name1 : name,
+            password1 : password
+            },
+    cache: false,
+    /*success: function(data){
+    $("div").text(data);
+    },*/
+    success: function(data){
+            var str = JSON.stringify(data);
+            var arr = JSON.parse(str);
+            console.log(arr['user_type']);
+          },
+      error:function(){
+          $("#p").html('Password Username is Wrong');
+          //$("#result").addClass('msg_error');
+         // $("#result").fadeIn(1500);
+      }   
 
-                $("#userTable").append(tr_str);
-            }
-         }
-});
-}
-});
-});
-
+    });
+       return false;
+    }   
+    }
 
  	
  </script>
  <body>
- <form method="post">
+ <form method="post" onsubmit="return myfunc()">
  	name
  	<input type="text" name="name" id="name">
  	password
  	<input type="text" name="password" id="password">
  	<input type="submit" id="submit">
  </form>
- <div></div>
+ <div id="p"></div>
  <table id="userTable">
  	
  </table>

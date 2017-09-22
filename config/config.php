@@ -1,5 +1,5 @@
 <?php //config file?>
-<?php 
+<?php
 /*echo __FILE__;
 echo "<br>";
 echo __DIR__ ;
@@ -60,15 +60,19 @@ class connection
 		}else{
 			echo mysqli_error($this->mysqli);
 		}*/
-		
+
 		$array = mysqli_fetch_array($login);
 		if($array['user_status'] == 0){
 			echo "<script type='text/javascript'>alert('Admin has Deacativate You . Contact Admin');</script>";
 			header("location:index.php");
 		}
 		else{
+			echo "hello";
+			exit();
 			if(mysqli_num_rows($login) > 0){
 				if(password_verify($user_check_password,$array['user_password'])){
+					echo "verify";
+					exit();
 					if($array['user_type'] == 'admin'){
 						header("location:index.php");
 					}
@@ -88,7 +92,7 @@ class connection
 			}//else of status end
 
 		}//function end
-		
+
 
 	function user_signup(
 		$user_firstname,
@@ -103,7 +107,7 @@ class connection
 		$user_email,
 		$user_username,
 		$user_password){
-		
+
 
 		$insert_query = "
 		INSERT INTO user
@@ -161,7 +165,7 @@ class connection
 		$user_password,
 		$current_id
 	){
-		$update_query = "UPDATE user 
+		$update_query = "UPDATE user
 		SET user_firstname = '$user_firstname',
 			user_lastname = '$user_lastname',
 			user_gender = $user_gender,
@@ -177,7 +181,7 @@ class connection
 			WHERE user_id = $current_id
 		 ";
 		 $q = mysqli_query($this->mysqli,$update_query);
-		
+
 		if($q){
 			echo "<script>alert('update success');</script>";
 		}else{
@@ -200,7 +204,7 @@ class connection
 		$user_username,
 		$current_id
 	){
-		$update_query = "UPDATE user 
+		$update_query = "UPDATE user
 		SET user_firstname = '$user_firstname',
 			user_lastname = '$user_lastname',
 			user_gender = $user_gender,
@@ -215,7 +219,7 @@ class connection
 			WHERE user_id = $current_id
 		 ";
 		 $q = mysqli_query($this->mysqli,$update_query);
-		
+
 		if($q){
 			echo "<script>alert('update success');</script>";
 		}else{
@@ -227,7 +231,7 @@ class connection
 
 	}
 	function get_user_footer(){
-		
+
 	}
 	function get_admin_header(){
 		?>

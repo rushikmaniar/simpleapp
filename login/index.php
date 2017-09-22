@@ -4,10 +4,10 @@ $con = new connection();
 
 if(isset($_POST['submit']) && $_POST['submit']=='login'){
 	//echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
- 	$user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
+ 	echo $user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
 
- 	$user_password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']); 
- 	$con->user_login($user_username,$user_password);
+ 	echo $user_password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']);
+  $con->user_login($user_username,$user_password);
 
 }
 ?>
@@ -16,11 +16,11 @@ if(isset($_POST['submit']) && $_POST['submit']=='login'){
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=1,initial-scale=1,user-scalable=1" />
 	<title>Simple App</title>
-	
+
 	<link href="http://fonts.googleapis.com/css?family=Lato:100italic,100,300italic,300,400italic,400,700italic,700,900italic,900" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css" />
+	<!--<link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
-	
+-->
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -46,8 +46,9 @@ if(isset($_POST['submit']) && $_POST['submit']=='login'){
 				</div>-->
 			</section>
 	</section>
-	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+	<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+-->
 </body>
 </html>

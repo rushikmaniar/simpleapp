@@ -154,67 +154,74 @@ else{
 }//isset update end
 
 ?>
-<html><!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>My APP</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
 
-        <!--<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>-->
-        <link rel="stylesheet" href="assets/css/fonticons.css">
-        <link rel="stylesheet" href="assets/fonts/stylesheet.css">
-        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>My APP</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-        <!--For Plugins external css-->
-        <link rel="stylesheet" href="assets/css/plugins.css" />
+    <!--<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>-->
+    <link rel="stylesheet" href="assets/css/fonticons.css">
+    <link rel="stylesheet" href="assets/fonts/stylesheet.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
 
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="assets/css/style.css">
+    <!--For Plugins external css-->
+    <link rel="stylesheet" href="assets/css/plugins.css" />
 
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="assets/css/responsive.css" />
+    <!--Theme custom css -->
+    <link rel="stylesheet" href="assets/css/style.css">
 
-        <script src="assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-    </head>
-    <body>
-        <!--[if lt IE 8]>
+    <!--Theme Responsive css-->
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+
+    <script src="assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-		<div class='preloader'><div class='loaded'>&nbsp;</div></div>
-        <!--Home page style-->
-        <header id="main_menu" class="header">
-            <div class="main_menu_bg navbar-fixed-top">
-                <div class="container">
-                    <div class="row">
-                        <div class="nave_menu wow fadeInDown" data-wow-duration="1s">
-                            <nav class="navbar navbar-default">
-                                <div class="container-fluid">
-                                    <!-- Brand and toggle get grouped for better mobile display -->
-                                    <div class="navbar-header">
-                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    <div class='preloader'>
+        <div class='loaded'>&nbsp;</div>
+    </div>
+    <!--Home page style-->
+    <header id="main_menu" class="header">
+        <div class="main_menu_bg navbar-fixed-top">
+            <div class="container">
+                <div class="row">
+                    <div class="nave_menu wow fadeInDown" data-wow-duration="1s">
+                        <nav class="navbar navbar-default">
+                            <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                                             <span class="sr-only">Toggle navigation</span>
                                             <span class="icon-bar"></span>
                                             <span class="icon-bar"></span>
                                             <span class="icon-bar"></span>
                                         </button>
-										
-                                        <a class="navbar-brand" href="#">DigiTize</a>
-                                    </div>
 
-                                    <!-- Collect the nav links, forms, and other content for toggling -->
-                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <a class="navbar-brand" href="#">DigiTize</a>
+                                </div>
 
-                                        <ul class="nav navbar-nav navbar-right">
-                                            <li><a href="#home">Home</a></li>
-											<!-- <li class="dropdown">
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li><a href="#home">Home</a></li>
+                                        <!-- <li class="dropdown">
 											  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plans and Services <span class="caret"></span></a>
 											  <ul class="dropdown-menu">
 												<li><a href="#">Dedicated</a></li>
@@ -227,56 +234,58 @@ else{
                                             <li><a href="#pricing">Infrastructure</a></li>
                                             <li><a href="#myworks">News</a></li> -->
 
-                                            <li><a href="#about">About</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#myModal">MY PROFILE</a></li>
-                                        </ul>
-                                    </div>
+                                        <li><a href="#about">About</a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#myModal">MY PROFILE</a></li>
+                                    </ul>
                                 </div>
-                            </nav>
-                        </div>	
+                            </div>
+                        </nav>
                     </div>
-
                 </div>
 
             </div>
-        </header> <!--End of header -->
+
+        </div>
+    </header>
+    <!--End of header -->
 
 
 
-        <section id="home" class="home">
-            <div class="home_overlay">
-                <div class="container">
-                    <div class="row">
-					
-						<div class="col-sm-10 col-sm-offset-1">
-							<div class="main_home">
-								<div class="mainhomecontent">
-									<div class="single_home">
-										<div class="col-sm-7">
-											<div class="single_home_left">
-												<h2>Welcome To DigiTize Info System</h2>
-												<h3>Welcome Back </h3>
-											</div>
-										</div>
-										<div class="col-sm-5">
-											<div class="single_home_right">
-												<a href=""><span>Call us :</span>  <strong>(818) 995-1560</strong></a>
-												<a href=""><span>E-mail us :</span> <strong>rushikmaniar107@gmail.com</strong> </a>
-												<!-- <button href="" class="btn btn-lg">Compare Our Pricing Plans</button> -->
-											</div>
-										</div>
-										<!--<img src="assets/images/homepc.png" alt="" />-->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-						
+    <section id="home" class="home">
+        <div class="home_overlay">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="main_home">
+                            <div class="mainhomecontent">
+                                <div class="single_home">
+                                    <div class="col-sm-7">
+                                        <div class="single_home_left">
+                                            <h2>Welcome To DigiTize Info System</h2>
+                                            <h3>Welcome Back </h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="single_home_right">
+                                            <a href=""><span>Call us :</span>  <strong>(818) 995-1560</strong></a>
+                                            <a href=""><span>E-mail us :</span> <strong>rushikmaniar107@gmail.com</strong> </a>
+                                            <!-- <button href="" class="btn btn-lg">Compare Our Pricing Plans</button> -->
+                                        </div>
+                                    </div>
+                                    <!--<img src="assets/images/homepc.png" alt="" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
-        </section><!-- End of Banner Section -->
-		
-	<!--	
+        </div>
+    </section>
+    <!-- End of Banner Section -->
+
+    <!--	
 		<section id="newsstory" class="sewsstory">
 			<div class="container">
 				<div class="row">
@@ -374,7 +383,7 @@ else{
 				</div>
 			</div>
 		</section><!-- End of Pricing Section -->
-<!--
+    <!--
 
 		<section id="callus" class="callus">
 			<div class="container">
@@ -419,117 +428,110 @@ else{
 			</div>
 		</section>
 		-->
-		<!-- Trigger the modal with a button -->
-<!--
+    <!-- Trigger the modal with a button -->
+    <!--
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 -->
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">MY PROFILE</h4>
-      </div>
-      <div class="modal-body">
-		<form method="post" action="" role="login" enctype="multipart/form-data">
-					<img src="assets/images/logo2.png" class="img-responsive" alt="" />
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">MY PROFILE</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="" role="login" enctype="multipart/form-data">
+                        <img src="assets/images/logo2.png" class="img-responsive" alt="" />
 
-					<h2 class="h2" align="center">Update Profile</h2>
-					<h5>Firstname</h5>
-					<input type="text" name="user_firstname" placeholder="Firstname" required class="form-control input-lg" value="<?php echo $user_array['user_firstname']?>">
-					<h5>Lastname</h5>
-					<input type="text" name="user_lastname" placeholder="LastName" required class="form-control input-lg" value="<?php echo $user_array['user_lastname']?>">
-					<br>
-					<h5>Update Pic</h5>
-					<label for="file"> Update Profile pic (max size : (160x160)) :  </label>
-					<br>
-					<button><img src="http://<?php echo $user_array['user_pic']; ?>">
+                        <h2 class="h2" align="center">Update Profile</h2>
+                        <h5>Firstname</h5>
+                        <input type="text" name="user_firstname" placeholder="Firstname" required class="form-control input-lg" value="<?php echo $user_array['user_firstname']?>">
+                        <h5>Lastname</h5>
+                        <input type="text" name="user_lastname" placeholder="LastName" required class="form-control input-lg" value="<?php echo $user_array['user_lastname']?>">
+                        <br>
+                        <h5>Update Pic</h5>
+                        <label for="file"> Update Profile pic (max size : (160x160)) :  </label>
+                        <br>
+                        <button><img src="http://<?php echo $user_array['user_pic']; ?>">
 					<input type="file" name ="file">
-					</button> 
-					<br>
-					<h5>Gender</h5>
-					<?php 
+					</button>
+                        <br>
+                        <h5>Gender</h5>
+                        <?php 
 					if($user_array['user_gender'] == 1){
 						?>
-						<input type="radio" name="user_gender" value="1" checked="checked">
-						Male
-						<input type="radio" name="user_gender" value="0">
-						Female
-					<br>
-					<?php
+                        <input type="radio" name="user_gender" value="1" checked="checked"> Male
+                        <input type="radio" name="user_gender" value="0"> Female
+                        <br>
+                        <?php
 					}
 					else{
 						?>
-						<input type="radio" name="user_gender" value="1">
-						Male
-						<input type="radio" name="user_gender" value="0" checked="checked">
-						Female
-					<?php
+                        <input type="radio" name="user_gender" value="1"> Male
+                        <input type="radio" name="user_gender" value="0" checked="checked"> Female
+                        <?php
 					}
 
 					?>
-					
-					<h5>Age</h5>
-					<input type="number" name="user_age" placeholder="Age" required class="form-control input-lg" value="<?php echo $user_array['user_age']?>">
 
-					<h5>Date Of Birth</h5>
-					<input type="date" name="user_dob" required class="form-control input-lg"
-					value="<?php echo $user_array['user_dob']; ?>">
+                        <h5>Age</h5>
+                        <input type="number" name="user_age" placeholder="Age" required class="form-control input-lg" value="<?php echo $user_array['user_age']?>">
 
-					<h5>Phone Number</h5>
-					<input type="text" name="user_phone" required class="form-control input-lg" placeholder="Phone Number" value="<?php echo $user_array['user_phone']?>">
-					
-					<h5>City</h5>
-					<input type="text" name="user_city" required class="form-control input-lg" placeholder="City" value="<?php echo $user_array['user_city']?>">
-					
-					<h5>State</h5>
-					<input type="text" name="user_state" required class="form-control input-lg" placeholder="State" value="<?php echo $user_array['user_state']?>">
-					
-					<h5>Country</h5>
-					<input type="text" name="user_country" required class="form-control input-lg" placeholder="Country" value="<?php echo $user_array['user_country']?>">
-					
-					<h5>Email</h5>
-					<input type="email" name="user_email" placeholder="Email" required class="form-control input-lg" value="<?php echo $user_array['user_email']?>" />
-					
-					<h5>UserName</h5>
-					<input type="text" name="user_username" required class="form-control input-lg" placeholder="UserName" value="<?php echo $user_array['user_username']?>">
-					
-					<h5>Old Password</h5>
-					<input type="password" name="user_oldpassword" placeholder="Enter Old Password"
-					class="form-control input-lg" id="user_oldpassword">
+                        <h5>Date Of Birth</h5>
+                        <input type="date" name="user_dob" required class="form-control input-lg" value="<?php echo $user_array['user_dob']; ?>">
 
-					<h5>New Password</h5>
-					<input type="password" name="new_password" placeholder="Enter New Passsword"
-					class="form-control input-lg" id="new_password" />
+                        <h5>Phone Number</h5>
+                        <input type="text" name="user_phone" required class="form-control input-lg" placeholder="Phone Number" value="<?php echo $user_array['user_phone']?>">
 
-					<button type="submit" name="submit" class="btn btn-lg btn-primary btn-block" value="update">Update Profile</button>
-				</form>
-		</div>
+                        <h5>City</h5>
+                        <input type="text" name="user_city" required class="form-control input-lg" placeholder="City" value="<?php echo $user_array['user_city']?>">
+
+                        <h5>State</h5>
+                        <input type="text" name="user_state" required class="form-control input-lg" placeholder="State" value="<?php echo $user_array['user_state']?>">
+
+                        <h5>Country</h5>
+                        <input type="text" name="user_country" required class="form-control input-lg" placeholder="Country" value="<?php echo $user_array['user_country']?>">
+
+                        <h5>Email</h5>
+                        <input type="email" name="user_email" placeholder="Email" required class="form-control input-lg" value="<?php echo $user_array['user_email']?>" />
+
+                        <h5>UserName</h5>
+                        <input type="text" name="user_username" required class="form-control input-lg" placeholder="UserName" value="<?php echo $user_array['user_username']?>">
+
+                        <h5>Old Password</h5>
+                        <input type="password" name="user_oldpassword" placeholder="Enter Old Password" class="form-control input-lg" id="user_oldpassword">
+
+                        <h5>New Password</h5>
+                        <input type="password" name="new_password" placeholder="Enter New Passsword" class="form-control input-lg" id="new_password" />
+
+                        <button type="submit" name="submit" class="btn btn-lg btn-primary btn-block" value="update">Update Profile</button>
+                    </form>
+                </div>
 
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
     </div>
-
-  </div>
-</div>
-		<section id="footerwidget" class="footerwidget">
-			<div class="container">
-				<div class="row">
-					<div class="main_footerwidget">
-						<div class="col-sm-2 col-xs-6">
-							<div class="single_widget">
-								<h4>Home</h4>
-								<a href="#" class="navbar-brande">DigiTize</a>
-								<br>
-								<a href="#" class="navbar-brande"  data-toggle="modal" data-target="#myModal">My Profile</a>
-							</div>
-						</div>
-						<!--<div class="col-sm-2 col-xs-6">
+    <section id="footerwidget" class="footerwidget">
+        <div class="container">
+            <div class="row">
+                <div class="main_footerwidget">
+                    <div class="col-sm-2 col-xs-6">
+                        <div class="single_widget">
+                            <h4>Home</h4>
+                            <a href="#" class="navbar-brande">DigiTize</a>
+                            <br>
+                            <a href="#" class="navbar-brande" data-toggle="modal" data-target="#myModal">My Profile</a>
+                        </div>
+                    </div>
+                    <!--<div class="col-sm-2 col-xs-6">
 							<div class="single_widget">
 								<h4>Plans and Services</h4>
 								<ul>
@@ -588,47 +590,48 @@ else{
 								</ul>
 							</div>
 						</div> -->
-					</div>
-				</div>
-			</div>
-		</section>
-		
-		<footer id="footer" class="footer">
-			<div class="container">
-				<div class="row">
-					<div class="main_footer">
-						<div class="col-sm-6 col-xs-12">
-							<div class="single_footer_left">
-								<p>Design: <strong>Rushik</strong></p>
-							</div>
-						</div>
-						<div class="col-sm-6 col-xs-12">
-							<div class="single_footer_right wow fadeInDown" data-wow-duration="1s">
-								<p>Made with <i class="fa fa-heart"></i> by <strong><a href="http://bootstrapthemes.co">Bootstrap Themes</a></strong>   2016. All Rights Reserved</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
-
-
-        <!-- STRAT SCROLL TO TOP -->
-
-        <div class="scrollup">
-            <a href="#"><i class="fa fa-chevron-up"></i></a>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <script src="assets/js/vendor/jquery-1.11.2.min.js"></script>
-        <script src="assets/js/vendor/bootstrap.min.js"></script>
-        <script src="assets/js/vendor/isotope.min.js"></script>
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="main_footer">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="single_footer_left">
+                            <p>Design: <strong>Rushik</strong></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="single_footer_right wow fadeInDown" data-wow-duration="1s">
+                            <p>Made with <i class="fa fa-heart"></i> by <strong><a href="http://bootstrapthemes.co">Bootstrap Themes</a></strong> 2016. All Rights Reserved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-        <script src="assets/js/jquery.easypiechart.min.js"></script>
-        <script src="assets/js/jquery.mixitup.min.js"></script>
-        
-            
-        <script src="assets/js/plugins.js"></script>
-        <script src="assets/js/main.js"></script>
-        
-    </body>
+
+    <!-- STRAT SCROLL TO TOP -->
+
+    <div class="scrollup">
+        <a href="#"><i class="fa fa-chevron-up"></i></a>
+    </div>
+
+    <script src="assets/js/vendor/jquery-1.11.2.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script src="assets/js/vendor/isotope.min.js"></script>
+
+    <script src="assets/js/jquery.easypiechart.min.js"></script>
+    <script src="assets/js/jquery.mixitup.min.js"></script>
+
+
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
 </html>

@@ -50,29 +50,32 @@ class connection
 
 
 	function user_login($user_username,$user_check_password){
-
+		//echo "hello";
+		//exit();
 
 		$query = "SELECT * FROM user
 		 WHERE user_username = '$user_username'";
 		$login = mysqli_query($this->mysqli,$query);
 		/*if($login){
-
+			//echo "success";
+			//exit();
 		}else{
 			echo mysqli_error($this->mysqli);
 		}*/
 
 		$array = mysqli_fetch_array($login);
+
 		if($array['user_status'] == 0){
+
 			echo "<script type='text/javascript'>alert('Admin has Deacativate You . Contact Admin');</script>";
 			header("location:index.php");
 		}
 		else{
-			echo "hello";
-			exit();
+			//echo "hello";
 			if(mysqli_num_rows($login) > 0){
 				if(password_verify($user_check_password,$array['user_password'])){
-					echo "verify";
-					exit();
+					//echo "verify";
+					//exit();
 					if($array['user_type'] == 'admin'){
 						header("location:index.php");
 					}
@@ -150,47 +153,26 @@ class connection
 	}
 
 
-	function user_update_with_password(
- 		$user_firstname,
-		$user_lastname,
-		$user_gender,
-		$user_age,
-		$user_dob,
-		$user_phone,
-		$user_city,
-		$user_state,
-		$user_country,
-		$user_email,
-		$user_username,
+	function user_update_password(
 		$user_password,
 		$current_id
 	){
+		//echo $user_password.$current_id;
 		$update_query = "UPDATE user
-		SET user_firstname = '$user_firstname',
-			user_lastname = '$user_lastname',
-			user_gender = $user_gender,
-			user_age = $user_age,
-			user_dob = '$user_dob',
-			user_phone = $user_phone,
-			user_city = '$user_city',
-			user_state = '$user_state',
-			user_country = '$user_country',
-			user_email = '$user_email',
-			user_username = '$user_username',
-			user_password = '$user_password',
-			WHERE user_id = $current_id
+		SET user_password = '$user_password'
+		WHERE user_id = $current_id
 		 ";
 		 $q = mysqli_query($this->mysqli,$update_query);
 
 		if($q){
-			echo "<script>alert('update success');</script>";
-		}else{
+			echo "update success";
+			}else{
 			echo mysqli_error($this->mysqli);
 		}
 	}
 
 	//without Password
-	function user_update_without_password(
+	function user_update_profile(
  		$user_firstname,
 		$user_lastname,
 		$user_gender,

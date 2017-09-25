@@ -1,4 +1,4 @@
-<?php session_start(); 
+<?php session_start();
 	if(!isset($_SESSION['user_username'])){
 	echo "hello";
 	header("location:../index.php");
@@ -6,7 +6,6 @@
 ?>
 <?php require_once('../config/config.php');
 $con = new connection();
-
 $current_username = $_SESSION['user_username'];
 $query_for_id = "SELECT * FROM user WHERE user_username = '$current_username'";
 $q = mysqli_query($con->mysqli,$query_for_id);
@@ -19,8 +18,7 @@ $q = mysqli_query($con->mysqli,$query_for_id);
 $user_array = mysqli_fetch_array($q);
 $current_id = $user_array['user_id'];
 //if submit button click
-if(isset($_POST['submit']) && $_POST['submit']=='update'){
-	
+if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'){
 	$user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
 	$user_lastname = mysqli_real_escape_string($con->mysqli,$_POST['user_lastname']);
 	$user_gender = mysqli_real_escape_string($con->mysqli,$_POST['user_gender']);
@@ -33,23 +31,15 @@ if(isset($_POST['submit']) && $_POST['submit']=='update'){
 	$user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
 	$user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
 
-	//if old password set
-	if((isset($_POST['user_oldpassword'])) && (isset($_POST['new_password']))){
-		echo "done";
-		//exit();
-		$old_password = mysqli_real_escape_string($con->mysqli,$_POST['user_oldpassword']);
-	 		//if old password matches with databse then updat
-	 		if(password_verify($old_password,$user_array['user_password'])){
-				echo $new_password = password_hash(mysqli_real_escape_string($con->mysqli,$_POST['new_password']),PASSWORD_DEFAULT);
-				exit();
 				//check if file exits
  				if(!file_exists($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
    					//echo "File Not Exits";
    					// Nothing To Do
 				}else{
 					//check if file uploaded
- 					if($_FILES['file']['error'] > 0) { 
- 						echo 'Error during uploading, try again'; 
+ 					if($_FILES['file']['error'] > 0) {
+ 						
+ 						echo 'Error during uploading, try again';
  					}
 					$maxWidth = 300;
 					$maxHeight = 300;
@@ -57,6 +47,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='update'){
 					//check if len and width proper
 					if ($width > $maxWidth || $height > $maxHeight) {
 				    // Cancel upload
+						
 						echo "<script type='text/javascript'> alert('file size Exceeds or Something Wrong') </script>";
 					}
 					else{
@@ -76,22 +67,22 @@ if(isset($_POST['submit']) && $_POST['submit']=='update'){
 						//Extract extention from uploaded file
 							//substr return ".jpg"
 							//Strrchr return "jpg"
-							
+
 						$extUpload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) ) ;
 
 						//Check if the uploaded file extension is allowed
 						//check if file extension valid
-						if (in_array($extUpload, $extsAllowed) ) { 
-							
+						if (in_array($extUpload, $extsAllowed) ) {
+
 							//Upload the file on the server
 							//$name = "http://".BASE_PATH."/user/uploads/profile/images/".$last_id."_profile_pic";
 							$name = "uploads/profile/images/".$current_id."_profile_".$_FILES['file']['name'];
 							$result = move_uploaded_file($_FILES["file"]["tmp_name"], $name);
-						
+
 							if($result){
-								
-								$path = BASE_PATH."user/".$name;
+								echo $path = BASE_PATH."user/".$name;
 								$query = "UPDATE user SET user_pic = '$path' WHERE user_id=$current_id";
+
 								$q = mysqli_query($con->mysqli,$query);
 								if($q){
 									echo "<font class='text-success'>Image Uploaded sucessfully</font>";
@@ -101,16 +92,16 @@ if(isset($_POST['submit']) && $_POST['submit']=='update'){
 									echo mysqli_error($con->mysqli);
 								}
 							}
-							else { 
+							else {
 								echo 'File is not valid. Please try again';
 							}//$result end
-							
-						}//extension check end 
-					
-					}//file upload check end 
+
+						}//extension check end
+
+					}//file upload check end
 				}//check of file exists close
 
-				$con->user_update_with_password(
+				$con->user_update_proflie(
 			 	$user_firstname,
 				$user_lastname,
 				$user_gender,
@@ -122,37 +113,37 @@ if(isset($_POST['submit']) && $_POST['submit']=='update'){
 				$user_country,
 				$user_email,
 				$user_username,
-				$new_password,
 				$current_id
 			 	);
 
-			}
-			//if old password not verify then
-	 		else{
-	 			echo "<font class='text-danger'>Old Password is Wrong</font>";
-	 		}
-	}//password set end
-else{
-	//without password function called
-	$con->user_update_without_password(
-			 	$user_firstname,
-				$user_lastname,
-				$user_gender,
-				$user_age,
-				$user_dob,
-				$user_phone,
-				$user_city,
-				$user_state,
-				$user_country,
-				$user_email,
-				$user_username,
-				$new_password,
-				$current_id
-			 	);
 }
-
-}//isset update end
-
+			
+if(isset($_POST['update_password']) && $_POST['update_password'] == 'update'){
+	if((isset($_POST['user_oldpassword'])) && (isset($_POST['new_password'])) && (isset($_POST['confirm_password']))){
+		if($_POST['confirm_password'] == $_POST['new_password']){
+		$old_password = mysqli_real_escape_string($con->mysqli,$_POST['user_oldpassword']);
+	 		//if old password matches with databse then updat
+	 		if(password_verify($old_password,$user_array['user_password'])){
+	 				echo "passwword verify";
+	 				//exit();
+					$new_password = password_hash(mysqli_real_escape_string(
+					$con->mysqli,$_POST['new_password']),PASSWORD_DEFAULT);						//update password function called
+				$con->user_update_password(
+					$new_password,
+					$current_id
+			 	);
+			}
+			else{
+				echo "old password wrong";
+				//exit();
+			}
+		}else{ 
+			echo "password not matching";exit();
+			//exit(); 
+			}
+		
+		}
+}
 ?>
 <html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -170,7 +161,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-    <!--<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>-->
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="assets/css/fonticons.css">
     <link rel="stylesheet" href="assets/fonts/stylesheet.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
@@ -229,13 +220,15 @@ else{
 												<li><a href="#">VPS Servers</a></li>
 												<li><a href="#">Shared Hosting</a></li>
 												<li><a href="#">Colcation</a></li>
-											  </ul> 
-											</li> 
+											  </ul>
+											</li>
                                             <li><a href="#pricing">Infrastructure</a></li>
                                             <li><a href="#myworks">News</a></li> -->
 
                                         <li><a href="#about">About</a></li>
                                         <li><a href="#" data-toggle="modal" data-target="#myModal">MY PROFILE</a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#password_modal">Change Password</a></li>
+                                        <li><a href="logout.php">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -285,7 +278,7 @@ else{
     </section>
     <!-- End of Banner Section -->
 
-    <!--	
+    <!--
 		<section id="newsstory" class="sewsstory">
 			<div class="container">
 				<div class="row">
@@ -295,14 +288,14 @@ else{
 				</div>
 			</div>
 		</section>
-		
-	
-		
+
+
+
 		<section id="pricing" class="pricing">
 			<div class="container">
 				<div class="row">
-				
-					
+
+
 					<div class="pricing_content_area">
 						<div class="head_title text-center">
 							<p>Grow your business with <strong>Digital Landscape</strong></p>
@@ -324,7 +317,7 @@ else{
 								<a href="" class="btn btn-primary">Start Free Trial</a>
 							</div>
 						</div>
-						
+
 					    <div class="col-md-3 col-sm-6">
 							<div class="single_pricing_text wow fadeIn" data-wow-duration="1.5s">
 								<div class="pricing_head_text">
@@ -342,7 +335,7 @@ else{
 								<a href="" class="btn btn-primary">Start Free Trial</a>
 							</div>
 						</div>
-						
+
 					    <div class="col-md-3 col-sm-6">
 							<div class="single_pricing_text wow fadeIn" data-wow-duration="1.8s">
 								<div class="pricing_head_text">
@@ -360,7 +353,7 @@ else{
 								<a href="" class="btn btn-primary">Start Free Trial</a>
 							</div>
 						</div>
-						
+
 					    <div class="col-md-3 col-sm-6">
 							<div class="single_pricing_text wow fadeIn" data-wow-duration="2s">
 								<div class="pricing_head_text">
@@ -378,7 +371,7 @@ else{
 								<a href="" class="btn btn-primary">Start Free Trial</a>
 							</div>
 						</div>
-					   
+
 					</div>
 				</div>
 			</div>
@@ -398,8 +391,8 @@ else{
 							</div>
 							<p class="email_call">Email us - <strong>sales@digitallandscape.com</strong></p>
 						</div>
-						
-						
+
+
 						<div class="callus_bottom_content">
 							<div class="col-sm-6">
 								<div class="single_callus_bottom_content">
@@ -411,9 +404,9 @@ else{
 									<p>Digital Landscape supplies enterprise-grade dedicated servers to resellers, VPS and shared hosts, cloud hosts, gamers, and other clients. With a global presence and multilingual sales and support capabilities, you can rely on Digital Landscape to be ready to help whenever you need it.</p>
 								</div>
 							</div>
-						
+
 						</div>
-						
+
 						<div class="callus_client_logo text-center wow fadeInUp" data-wow-duration="1s">
 							<p>Some of our satisfied clients include...</p>
 							<a href=""><img src="assets/images/c1.png" alt="" /></a>
@@ -460,7 +453,7 @@ else{
 					</button>
                         <br>
                         <h5>Gender</h5>
-                        <?php 
+                        <?php
 					if($user_array['user_gender'] == 1){
 						?>
                         <input type="radio" name="user_gender" value="1" checked="checked"> Male
@@ -501,17 +494,9 @@ else{
                         <h5>UserName</h5>
                         <input type="text" name="user_username" required class="form-control input-lg" placeholder="UserName" value="<?php echo $user_array['user_username']?>">
 
-                        <h5>Old Password</h5>
-                        <input type="password" name="user_oldpassword" placeholder="Enter Old Password" class="form-control input-lg" id="user_oldpassword">
-
-                        <h5>New Password</h5>
-                        <input type="password" name="new_password" placeholder="Enter New Passsword" class="form-control input-lg" id="new_password" />
-
-                        <button type="submit" name="submit" class="btn btn-lg btn-primary btn-block" value="update">Update Profile</button>
+                        <button type="submit" name="update_profile" class="btn btn-lg btn-primary btn-block" value="update_profile">Update Profile</button>
                     </form>
                 </div>
-
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
@@ -519,6 +504,43 @@ else{
 
         </div>
     </div>
+
+    <div id="password_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Password</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="" role="login" enctype="multipart/form-data">
+                        <h5>Old Password</h5>
+                        <input type="password" name="user_oldpassword" placeholder="Enter Old Password" class="form-control input-lg" id="user_oldpassword" required="required">
+
+                        <h5>New Password</h5>
+                        <input type="password" name="new_password" placeholder="Enter New Passsword" class="form-control input-lg" id="new_password" required="required" />
+
+						<h5>Confirm Password</h5>
+                        <input type="password" name="confirm_password" placeholder="Enter New Passsword" class="form-control input-lg" id="new_password" required="required" />
+
+                        <button type="submit" name="update_password" class="btn btn-lg btn-primary btn-block" value="update">Update Password</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
     <section id="footerwidget" class="footerwidget">
         <div class="container">
             <div class="row">
@@ -529,6 +551,8 @@ else{
                             <a href="#" class="navbar-brande">DigiTize</a>
                             <br>
                             <a href="#" class="navbar-brande" data-toggle="modal" data-target="#myModal">My Profile</a>
+                            <br>
+                            <a href="#" class="navbar-brande" data-toggle="modal" data-target="#password_modal">Update Password</a>
                         </div>
                     </div>
                     <!--<div class="col-sm-2 col-xs-6">
@@ -586,7 +610,7 @@ else{
 									<li><a href=""><span>Call us :</span>  <strong>(818) 995-1560</strong></a>
 											</li>
 									<li><a href=""><span>E-mail us :</span> <strong>XpeedStudio@gmail.com</strong> </a></li>
-									
+
 								</ul>
 							</div>
 						</div> -->

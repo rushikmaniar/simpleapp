@@ -35,8 +35,41 @@ if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'
         );
 
 }
+if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
+  $user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
+  $user_lastname = mysqli_real_escape_string($con->mysqli,$_POST['user_lastname']);
+  $user_gender = mysqli_real_escape_string($con->mysqli,$_POST['user_gender']);
+  $user_age = mysqli_real_escape_string($con->mysqli,$_POST['user_age']);
+  $user_dob = mysqli_real_escape_string($con->mysqli,$_POST['user_dob']);
+  $user_phone = mysqli_real_escape_string($con->mysqli,$_POST['user_phone']);
+  $user_city = mysqli_real_escape_string($con->mysqli,$_POST['user_city']);
+  $user_state = mysqli_real_escape_string($con->mysqli,$_POST['user_state']);
+  $user_country = mysqli_real_escape_string($con->mysqli,$_POST['user_country']);
+  $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
+  $user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
+  $user_password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']);
+  $user_type = mysqli_real_escape_string($con->mysqli,$_POST['user_type']);
+  //$current_id = $_POST['user_id'];
 
+        $con->add_user(
+        $user_firstname,
+        $user_lastname,
+        $user_gender,
+        $user_age,
+        $user_dob,
+        $user_phone,
+        $user_city,
+        $user_state,
+        $user_country,
+        $user_email,
+        $user_username,
+        $user_password,
+        $user_type
+        );
+
+}
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +87,6 @@ if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'
 </head>
 <body>
      
-           
           
     <div id="wrapper">
          <div class="navbar navbar-inverse navbar-fixed-top">
@@ -109,7 +141,7 @@ if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'
                 </div>              
                  <!-- /. ROW  -->
                  <label>Add New User</label><br>
-                 <button class="btn-primary btn-lg"><img src="assets/img/add_new_user.png" alt=""></button>
+                 <button class="btn-primary btn-lg"><img src="assets/img/add_new_user.png" alt="" data-toggle="modal" data-target="#insert_user"></button>
                   <hr />
                   <table class="table-condensed table-hover table-bordered table-striped ">
                     <th>CheckBox</th>
@@ -130,37 +162,32 @@ if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'
                     <th>Delete User </th>
                   <?php 
                   while($rec = mysqli_fetch_assoc($display_user)){
-                    echo "<tr>";
-
-                    echo "<td>"; ?> <input type="checkbox" name="user_sel" class="checkbox" /><?php echo "</td>";
-                    echo "<td>".$rec['user_firstname']."</td>";
-                    echo "<td>".$rec['user_lastname']."</td>";
-                    echo "<td>";
-                    echo $rec['user_gender'] == 1 ? "Male" : "Female";
-                    echo "</td>";
-
-                    echo "<td>".$rec['user_age']."</td>";
-                    echo "<td>".$rec['user_dob']."</td>";
-                    echo "<td>".$rec['user_phone']."</td>";
-                    echo "<td>".$rec['user_city']."</td>";
-                    echo "<td>".$rec['user_state']."</td>";
-                    echo "<td>".$rec['user_country']."</td>";
-                    echo "<td>".$rec['user_email']."</td>";
-                    echo "<td>".$rec['user_username']."</td>";
-                    echo "<td>";
-                    echo $rec['user_status'] == 1 ? "Active" : "InActive" ;
-                    echo "</td>";
-                    echo "<td>".$rec['user_type']."</td>";
-                    echo "<td>";?>
-                      <a href="#update_user_modal" data-toggle = "modal" data-id="<?php echo $rec['user_id']; ?>" id="update_user">
-                      <button class="btn-warning btn-lg" id="btn-edit" value="<?php echo $rec['user_id'];?>">Edit</button></a><?php echo "</td>";
-                    echo "<td>";?><button class="btn-danger btn-lg">Delete</button><?php echo "</td>";
-                    echo "</tr>";
+                   ?>
+                   
+                    <tr>
+                        <td><input type="checkbox" name=""></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_firstname"><?php echo $rec['user_firstname']; ?></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_lastname"><?php echo $rec['user_lastname']; ?></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_gender"><?php echo $rec['user_gender'] == 1 ? "Male" : "Female"; ?></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_age"><?php echo $rec['user_age']; ?></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_dob"><?php echo $rec['user_dob']; ?></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_phone"><?php echo $rec['user_phone']; ?></td> 
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_city"><?php echo $rec['user_city']; ?></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_state"><?php echo $rec['user_state']; ?></td> 
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_country"><?php echo $rec['user_country']; ?></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_email"><?php echo $rec['user_email']; ?></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_username"><?php echo $rec['user_username']; ?></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_status"><?php echo $rec['user_status']; ?></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_type"><?php echo $rec['user_type']; ?></td>
+                        <td><a href="#" data-toggle="modal" data-target="#update_user_modal"><button class="btn-lg btn-success" id="btn_edit" value="<?php echo $rec['user_id']; ?>">Edit</button></a></td>
+                        <td><button class="btn-lg btn-danger" id="btn_delete" data-id="<?php echo $rec['user_id']; ?>">Delete</button></td>
+                    </tr>
+                   <?php
                   }
                   ?>
                   </table>
                  <!-- /. ROW  --> 
-                    
+           <!-- modal edit user-->         
         <!-- Modal -->
     <div id="update_user_modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -183,7 +210,7 @@ if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'
                         <br>
                         
                         <h5>Gender</h5>
-                      
+                     
          
                         <input type="radio" name="user_gender" value="1" id="gender_male"> Male
                         <input type="radio" name="user_gender" value="0" id="gender_female"> Female
@@ -212,7 +239,81 @@ if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'
                         <h5>UserName</h5>
                         <input type="text" name="user_username" required class="form-control input-lg" placeholder="UserName">
 
-                        <button type="submit" name="update_profile" class="btn btn-lg btn-primary btn-block" value="update_profile" id="btn-update">Update Profile</button>
+                        <button type="submit" name="update_profile" class="btn btn-lg btn-primary btn-block" value="update_profile" id="btn_update" data-id="<?php echo $rec['user_id'];?>">Update Profile</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+        <!-- modal add new user-->
+          <!-- Modal -->
+    <div id="insert_user" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" id="modalContent">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">ADD NEW USER</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="" role="login" enctype="multipart/form-data">
+                        <input type="hidden" name="user_id">
+                       
+                        <h5>Firstname</h5>
+                        <input type="text" name="user_firstname" id="user_firstname" placeholder="Firstname" required class="form-control input-lg">
+                        <h5>Lastname</h5>
+                        <input type="text" name="user_lastname" placeholder="LastName" required class="form-control input-lg">
+                        <br>
+                        
+                        <h5>Gender</h5>
+                     
+         
+                        <input type="radio" name="user_gender" value="1" id="gender_male"> Male
+                        <input type="radio" name="user_gender" value="0" id="gender_female"> Female
+                         
+                        <h5>Age</h5>
+                        <input type="number" name="user_age" placeholder="Age" required class="form-control input-lg">
+
+                        <h5>Date Of Birth</h5>
+                        <input type="date" name="user_dob" required class="form-control input-lg">
+
+                        <h5>Phone Number</h5>
+                        <input type="text" name="user_phone" required class="form-control input-lg" placeholder="Phone Number">
+
+                        <h5>City</h5>
+                        <input type="text" name="user_city" required class="form-control input-lg" placeholder="City">
+
+                        <h5>State</h5>
+                        <input type="text" name="user_state" required class="form-control input-lg" placeholder="State">
+
+                        <h5>Country</h5>
+                        <input type="text" name="user_country" required class="form-control input-lg" placeholder="Country">
+
+                        <h5>Email</h5>
+                        <input type="email" name="user_email" placeholder="Email" required class="form-control input-lg"/>
+
+                        <h5>UserName</h5>
+                        <input type="text" name="user_username" required class="form-control input-lg" placeholder="UserName">
+
+                        <h5>Password</h5>
+                        <input type="text" name="user_password" required class="form-control input-lg" placeholder="password">
+
+                        <select name="user_type">
+                          <option value="admin" class="form-control input-lg">admin</option>
+                          <option value="subscriber" selected="selected"  class="form-control input-lg">subscriber</option>
+                        </select>
+
+                        <button type="submit" name="insert_user" class="btn btn-lg btn-primary btn-block" value="insert_user" id="btn_insert" data-id="<?php echo $rec['user_id'];?>">Add User</button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -228,7 +329,7 @@ if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'
 
 
 
-                   
+
          <!-- /. PAGE WRAPPER  -->
         </div>
       </div>

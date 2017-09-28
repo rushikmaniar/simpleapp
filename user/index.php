@@ -16,6 +16,7 @@ $q = mysqli_query($con->mysqli,$query_for_id);
 	exit();
 }*/
 $user_array = mysqli_fetch_array($q);
+
 $current_id = $user_array['user_id'];
 //if submit button click
 if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'){
@@ -167,7 +168,7 @@ if(isset($_POST['update_password']) && $_POST['update_password'] == 'update'){
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
-
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--For Plugins external css-->
     <link rel="stylesheet" href="assets/css/plugins.css" />
 
@@ -181,6 +182,7 @@ if(isset($_POST['update_password']) && $_POST['update_password'] == 'update'){
 </head>
 
 <body>
+	
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -257,8 +259,6 @@ if(isset($_POST['update_password']) && $_POST['update_password'] == 'update'){
                                         <div class="single_home_left">
                                             <h2>Welcome To DigiTize Info System</h2>
                                             <h3>Welcome Back </h3>
-                                        </div>
-                                    </div>
                                     <div class="col-sm-5">
                                         <div class="single_home_right">
                                             <a href=""><span>Call us :</span>  <strong>(818) 995-1560</strong></a>
@@ -425,6 +425,7 @@ if(isset($_POST['update_password']) && $_POST['update_password'] == 'update'){
     <!--
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 -->
+  			<strong><?php $con->check_birthday($user_array['user_dob']);?></strong>
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">

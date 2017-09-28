@@ -11,7 +11,8 @@
     IN EXCHANGE JUST GIVE US CREDITS AND TELL YOUR FRIENDS ABOUT US
    
     ========================================================  */
-$("#btn-edit").on("click",function(){
+    var arr1;
+$("#btn_edit").on("click",function(){
    var user_id = $(this).val();
    //alert(user_id);
    $.ajax({
@@ -25,6 +26,7 @@ $("#btn-edit").on("click",function(){
             var str = JSON.stringify(data);
             var gender = 1;
             var arr = JSON.parse(str);
+            arr1 = arr;
             console.log(arr);
             if(arr['user_gender'] == 0){
                $('#gender_female').attr('checked', 'checked');
@@ -46,8 +48,9 @@ $("#btn-edit").on("click",function(){
             $('input[name=user_id]').val(arr['user_id']);
             //$('#update_user_modal').show();
             //$('#modalContent').show().html(data);
+            
             return false;
-            window.reload
+            
         },
         error : function() {
             console.log('error');
@@ -56,44 +59,69 @@ $("#btn-edit").on("click",function(){
 
    });
 });
+$("#btn_delete").on("click",function(){
+    var c;
+    if(c = confirm("are u sure ?")){
+    var user_id = $(this).data('id'); 
+     $.ajax({
+        cache : false,
+        dataType:'text',
+        type : 'POST',
+        url : 'user_delete.php',
+        data : { user_id : user_id},
+        success : function(data)
+        {
+          console.log('delete success');
+          alert("delete success");
+            return false;
+            
+        },
+        error : function() {
+            console.log('error');
+            return false;
+        }
 
-$("#btn-update").on("click",function(){
+   });
+ }else{
+    return false;
+ }
+});
+/*$("#btn_update").on("click",function(){
+    //alert("called");
    var user_id = $(this).data('id');
-   //alert(user_id);
+  // alert(user_id);
    $.ajax({
         cache : false,
         dataType:'JSON',
         type : 'POST',
-        url : 'update_user.php',
+        url : 'get_user.php',
         data : { user_id : user_id},
         success : function(data)
         {
             var str = JSON.stringify(data);
             var gender = 1;
             var arr = JSON.parse(str);
-            console.log(arr);
-            if(arr['user_gender'] == 0){
-               $('#gender_female').attr('checked', 'checked');
-            }else{
-                $('#gender_male').attr('checked', 'checked');
-            }
-            $('input[name=user_firstname]').val(arr['user_firstname']);
-            $('input[name=user_lastname]').val(arr['user_lastname']);
+            console.log(data);
+          
+            $('.row_'+user_id+'[name=user_firstname]').text('Hi');
+            $('.row_'+user_id+'[name=user_firstname]').html(arr1['user_firstname']);
+            $('.row_'+user_id+'[name=user_lastname]').html(arr1['user_lastname']);
            // $('input[name=user_gender]').val(gender);
-            $('input[name=user_age]').val(arr['user_age']);
-            $('input[name=user_dob]').val(arr['user_dob']);
-            $('input[name=user_phone]').val(arr['user_phone']);
-            $('input[name=user_city]').val(arr['user_city']);
-            $('input[name=user_state]').val(arr['user_state']);
-            $('input[name=user_country]').val(arr['user_country']);
-            $('input[name=user_email]').val(arr['user_email']);
-            $('input[name=user_username]').val(arr['user_username']);
-
-            $('input[name=user_id]').val(arr['user_id']);
+            $('.row_'+user_id+'[name=user_age]').html(arr1['user_age']);
+            $('.row_'+user_id+'[name=user_dob]').html(arr1['user_dob']);
+            $('.row_'+user_id+'[name=user_phone]').html(arr1['user_phone']);
+            $('.row_'+user_id+'[name=user_city]').html(arr1['user_city']);
+            $('.row_'+user_id+'[name=user_state]').html(arr1['user_state']);
+            $('.row_'+user_id+'[name=user_country]').html(arr1['user_country']);
+            $('.row_'+user_id+'[name=user_email]').html(arr1['user_email']);
+            $('.row_'+user_id+'[name=user_username]').html(arr1['user_username']);
+           // $('button[name=update_profile]').data('id', arr1['user_id']);
+          //  $('.'+user_id+'[name=user_id]').html(arr['user_id']);
             //$('#update_user_modal').show();
             //$('#modalContent').show().html(data);
+            
             return false;
-            window.reload
+            
         },
         error : function() {
             console.log('error');
@@ -101,7 +129,7 @@ $("#btn-update").on("click",function(){
         }
 
    });
-});
+});*/
 
 (function ($) {
     "use strict";

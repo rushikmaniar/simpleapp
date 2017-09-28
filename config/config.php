@@ -48,7 +48,33 @@ class connection
 		}
 	}//construct ends
 
-
+	function check_birthday($check_date){
+		$current = strtotime(date('Y-m-d'));
+		$user_date = strtotime($check_date);
+		$day = ((($user_date - $current)/3600)/24);
+		if($day <=10){
+			if($day==0){
+				echo "<h1 class='h2 alert-success'>Happy Birthday</h1>";
+				?>
+				<br><div align="center">
+				<img src="assets/images/birthday.png" alt="happy birthday">
+				</div>
+				<?php
+			}
+			else if($day==1){
+				echo "<h1 class='h1'>Tommorow is Your Birthday</h1>";
+			}
+			else if($day > 1 ){
+				echo "Your Birthday in ".$day."days";
+			}
+			else{
+				echo "Birhtday not found";
+			}
+		}
+		else{
+				echo "Birhtday not found";
+			}
+	}
 	function user_login($user_username,$user_check_password){
 		//echo "hello";
 		//exit();
@@ -152,6 +178,64 @@ class connection
 		}
 	}
 
+	function add_user(
+		$user_firstname,
+		$user_lastname,
+		$user_gender,
+		$user_age,
+		$user_dob,
+		$user_phone,
+		$user_city,
+		$user_state,
+		$user_country,
+		$user_email,
+		$user_username,
+		$user_password,
+		$user_type){
+
+		$user_password = password_hash($user_password,PASSWORD_DEFAULT);
+		$insert_query = "
+		INSERT INTO user
+		(user_firstname,
+		user_lastname,
+		user_gender,
+		user_age,
+		user_dob,
+		user_phone,
+		user_city,
+		user_state,
+		user_country,
+		user_email,
+		user_username,
+		user_password,
+		user_status,
+		user_type)
+		VALUES(
+		'$user_firstname',
+		'$user_lastname',
+		$user_gender,
+		$user_age,
+		'$user_dob',
+		$user_phone,
+		'$user_city',
+		'$user_state',
+		'$user_country',
+		'$user_email',
+		'$user_username',
+		'$user_password',
+		1,
+		'$user_type')
+		";
+		//echo "<br><br>";
+		$this->signup_query = mysqli_query($this->mysqli,$insert_query);
+		if($this->signup_query){
+			echo "insert success";
+		}else{
+			echo "<h2 class='text-danger'> UserName Already Exists Or Something Wrong</h2>";
+			echo mysqli_error($this->mysqli);
+		}
+	}
+
 
 	function user_update_password(
 		$user_password,
@@ -202,11 +286,11 @@ class connection
 		 ";
 		 $q = mysqli_query($this->mysqli,$update_query);
 
-		if($q){
-			echo "<script>alert('update success');</script>";
+/*		if($q){
+			//echo "<script>alert('update success');</script>";
 		}else{
 			echo mysqli_error($this->mysqli);
-		}
+		}*/
 	}
 
 	function get_user_header(){

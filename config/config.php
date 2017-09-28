@@ -31,6 +31,7 @@ define('BASE_PATH',$_SERVER['HTTP_HOST'].str_replace(array('config','user','admi
 class connection
 {
 	public $mysqli;
+	public $disable_id;
 	public $insert_func;
 	public $signup_query;
 	function __construct()
@@ -65,10 +66,10 @@ class connection
 				echo "<h1 class='h1'>Tommorow is Your Birthday</h1>";
 			}
 			else if($day > 1 ){
-				echo "Your Birthday in ".$day."days";
+				echo "<h1 class='h1'>Your Birthday in ".$day."days"."</h1>";
 			}
 			else{
-				echo "Birhtday not found";
+				//echo "Birhtday not found";
 			}
 		}
 		else{
@@ -103,7 +104,9 @@ class connection
 					//echo "verify";
 					//exit();
 					if($array['user_type'] == 'admin'){
-						header("location:index.php");
+						$_SESSION["user_username"] = $array['user_username'];
+						$_SESSION["usertype"] = "admin";
+						header("location:../admin/index.php");
 					}
 					else{
 						$_SESSION["user_username"] = $array['user_username'];

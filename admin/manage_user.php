@@ -4,6 +4,14 @@ require_once("../config/config.php");
 $con = new connection();
 $display_query = "SELECT * FROM user";
 $display_user = mysqli_query($con->mysqli,$display_query);
+if((isset($_SESSION['user_username'])) && (isset($_SESSION['usertype']))){
+    $q = "SELECT user_id FROM user WHERE user_username = '".$_SESSION['user_username']."'";
+    $query= mysqli_query($con->mysqli,$q);
+    $arr = mysqli_fetch_assoc($query);
+    $con->disable_id = $arr['user_id'];
+}else{
+  header("location:../login/index.php");  
+}
 
 if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'){
   $user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
@@ -105,7 +113,7 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
                 </div>
               
                 <span class="logout-spn" >
-                  <a href="#" style="color:#fff;">LOGOUT</a>  
+                  <a href="logout.php" style="color:#fff;">LOGOUT</a>  
 
                 </span>
             </div>
@@ -164,7 +172,7 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
                   while($rec = mysqli_fetch_assoc($display_user)){
                    ?>
                    
-                    <tr>
+                    <tr class="row_".<?php echo $rec['user_id']; ?>>
                         <td><input type="checkbox" name=""></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_firstname"><?php echo $rec['user_firstname']; ?></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_lastname"><?php echo $rec['user_lastname']; ?></td>
@@ -179,8 +187,20 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_username"><?php echo $rec['user_username']; ?></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_status"><?php echo $rec['user_status']; ?></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_type"><?php echo $rec['user_type']; ?></td>
-                        <td><a href="#" data-toggle="modal" data-target="#update_user_modal"><button class="btn-lg btn-success" id="btn_edit" value="<?php echo $rec['user_id']; ?>">Edit</button></a></td>
+
+                        <?php 
+                        if($rec['user_id'] == $con->disable_id){
+                          ?>
+                        <td><a href="#" data-toggle="modal" data-target="#update_user_modal"><button class="btn-lg btn-success" id="btn_edit" value="<?php echo $rec['user_id']; ?>" disabled>Edit</button></a></td>
+                       
+                        <td><button class="btn-lg btn-danger" id="btn_delete" data-id="<?php echo $rec['user_id']; ?>" disabled>Delete</button></td>
+                        <?php 
+                        }else{
+                         ?>
+                         <td><a href="#" data-toggle="modal" data-target="#update_user_modal"><button class="btn-lg btn-success" id="btn_edit" value="<?php echo $rec['user_id']; ?>">Edit</button></a></td>
+                       
                         <td><button class="btn-lg btn-danger" id="btn_delete" data-id="<?php echo $rec['user_id']; ?>">Delete</button></td>
+                      <?php } ?>                   
                     </tr>
                    <?php
                   }
@@ -352,7 +372,6 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
     <script src="assets/js/bootstrap.min.js"></script>
       <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
-    
-   
+
 </body>
 </html>

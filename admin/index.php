@@ -1,4 +1,13 @@
-﻿<?php session_start(); ?>
+﻿<?php session_start(); 
+if((isset($_SESSION['user_username'])) && (isset($_SESSION['usertype']))){
+    //$q = "SELECT user_id FROM user WHERE user_username = '".$_SESSION['user_username']."'";
+    //$query= mysqli_query($con->mysqli,$q);
+    //$arr = mysqli_fetch_assoc($query);
+    //$con->disable_id = $arr['user_id'];
+}else{
+  header("location:../login/index.php");  
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +44,7 @@
                 </div>
               
                 <span class="logout-spn" >
-                  <a href="#" style="color:#fff;">LOGOUT</a>  
+                  <a href="logout.php" style="color:#fff;">LOGOUT</a>  
 
                 </span>
             </div>

@@ -1,7 +1,9 @@
 <?php session_start(); ?>
 <?php require_once('../config/config.php');
 $con = new connection();
-
+if(isset($_REQUEST['status'])){
+	echo "<h3 class='h3 alert-success'><b>Registraton Success . Please Login</b></h3>";
+}
 if(isset($_POST['submit']) && $_POST['submit']=='login'){
 	//echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
  	$user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);

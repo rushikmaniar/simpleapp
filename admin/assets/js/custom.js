@@ -59,6 +59,7 @@ $("#btn_edit").on("click",function(){
 
    });
 });
+
 $("#btn_delete").on("click",function(){
     var c;
     if(c = confirm("are u sure ?")){

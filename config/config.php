@@ -37,7 +37,7 @@ class connection
 	function __construct()
 	{
 		$dbhost = 'localhost';
-  		$dbuser = 'root';    $dbpass = '';    $dbname = 'simpleapp';
+  		$dbuser = 'root';    $dbpass = 'mysql';    $dbname = 'simpleapp';
         // mysqli - start
         $this->mysqli = new mysqli("$dbhost", "$dbuser", "$dbpass", "$dbname");
 		if($this->mysqli){
@@ -92,38 +92,41 @@ class connection
 
 		$array = mysqli_fetch_array($login);
 
-		if($array['user_status'] == 0){
-
-			echo "<script type='text/javascript'>alert('Admin has Deacativate You . Contact Admin');</script>";
-			header("location:index.php");
-		}
-		else{
+		
+		
 			//echo "hello";
-			if(mysqli_num_rows($login) > 0){
-				if(password_verify($user_check_password,$array['user_password'])){
-					//echo "verify";
-					//exit();
-					if($array['user_type'] == 'admin'){
-						$_SESSION["user_username"] = $array['user_username'];
-						$_SESSION["usertype"] = "admin";
-						header("location:../admin/index.php");
-					}
-					else{
-						$_SESSION["user_username"] = $array['user_username'];
-						header("location:../user/index.php");
-					}
-				}
-				else{
-					echo "login failed";
-				}
-			}
-			else{
-				echo "login failed";
-			}
+			if(mysqli_num_rows($login) == 1){
+				
+				if($array['user_status'] == 0){
 
-			}//else of status end
+					echo "<script type='text/javascript'>alert('Admin has Deacativate You . Contact Admin');</script>";
+					header("location:index.php");
+				}else{
+						if(password_verify($user_check_password,$array['user_password'])){
+							//echo "verify";
+							//exit();
+							if($array['user_type'] == 'admin'){
+								$_SESSION["user_username"] = $array['user_username'];
+								$_SESSION["usertype"] = "admin";
+								header("location:../admin/index.php");
+							}
+							else{
+								$_SESSION["user_username"] = $array['user_username'];
+								header("location:../user/index.php");
+							}
+						}else{
+							//password not verfied
+							echo "login failed";
+						}
+				}else{
+						//num of rows not 1 
+						echo "login failed";
+					}
+		}
+			
 
 		}//function end
+		}
 
 
 	function user_signup(

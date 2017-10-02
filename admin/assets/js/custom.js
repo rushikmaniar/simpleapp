@@ -12,7 +12,8 @@
    
     ========================================================  */
     var arr1;
-$("#btn_edit").on("click",function(){
+$(".btn-edit").on("click",function(){
+   //alert("called");
    var user_id = $(this).val();
    //alert(user_id);
    $.ajax({
@@ -48,9 +49,6 @@ $("#btn_edit").on("click",function(){
             $('input[name=user_id]').val(arr['user_id']);
             //$('#update_user_modal').show();
             //$('#modalContent').show().html(data);
-            
-            return false;
-            
         },
         error : function() {
             console.log('error');
@@ -60,10 +58,60 @@ $("#btn_edit").on("click",function(){
    });
 });
 
-$("#btn_delete").on("click",function(){
+
+$(".btn-view-user").on("click",function(){
+   //alert("called");
+   var user_id = $(this).val();
+   //alert(user_id);
+   $.ajax({
+        cache : false,
+        dataType:'JSON',
+        type : 'POST',
+        url : 'update_user.php',
+        data : { user_id : user_id},
+        success : function(data)
+        {
+            var str = JSON.stringify(data);
+            var gender = 1;
+            var arr = JSON.parse(str);
+            arr1 = arr;
+            console.log(arr['user_pic']);
+            $('.view-user td[name=user_pic]').html('<img src=\'../user/uploads/profile/images/'+ arr["img_name"] +'\' alt=\'image not found\'>');
+            $('.view-user td[name=user_firstname]').html(arr['user_firstname']);
+            $('.view-user td[name=user_lastname]').html(arr['user_lastname']);
+           
+            if(arr['user_gender'] == 0){
+               $('.view-user td[name=user_gender]').html("Female");
+            }else{
+                $('.view-user td[name=user_gender]').html("Male");
+            }
+            $('.view-user td[name=user_age]').html(arr['user_age']);
+            $('.view-user td[name=user_dob]').html(arr['user_dob']);
+            $('.view-user td[name=user_phone]').html(arr['user_phone']);
+            $('.view-user td[name=user_city]').html(arr['user_city']);
+            $('.view-user td[name=user_state]').html(arr['user_state']);
+            $('.view-user td[name=user_country]').html(arr['user_country']);
+            $('.view-user td[name=user_email]').html(arr['user_email']);
+            $('.view-user td[name=user_username]').html(arr['user_username']);
+            $('.view-user td[name=user_type]').html(arr['user_username']);
+        //    $('.view-user td[name=user_id]').html(arr['user_id']);
+            //$('#update_user_modal').show();
+            //$('#modalContent').show().html(data);
+        },
+        error : function() {
+            console.log('error');
+            return false;
+        }
+
+   });
+});
+
+$(".btn_delete").on("click",function(){
+    //alert("called");
     var c;
     if(c = confirm("are u sure ?")){
-    var user_id = $(this).data('id'); 
+    var user_id = $(this).val();
+    alert(user_id); 
      $.ajax({
         cache : false,
         dataType:'text',
@@ -74,7 +122,7 @@ $("#btn_delete").on("click",function(){
         {
           console.log('delete success');
           alert("delete success");
-            return false;
+          location.reload();
             
         },
         error : function() {

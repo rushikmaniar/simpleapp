@@ -16,7 +16,7 @@ echo __NAMESPACE__  ;
 echo "<br>";*/
 define('BASE_URL',str_replace(array('config'),'',__DIR__));
 //echo BASE_URL;
-define('BASE_PATH',$_SERVER['HTTP_HOST'].str_replace(array('config','user','admin'),'',dirname($_SERVER['SCRIPT_NAME'])));
+define('BASE_PATH',$_SERVER['HTTP_HOST'].str_replace(array('config','user','admin','login'),'',dirname($_SERVER['SCRIPT_NAME'])));
 //echo '<br>';
 //echo BASE_PATH;
 //echo "<br>";

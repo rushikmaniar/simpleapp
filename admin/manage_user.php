@@ -151,55 +151,60 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
                  <label>Add New User</label><br>
                  <button class="btn-primary btn-lg"><img src="assets/img/add_new_user.png" alt="" data-toggle="modal" data-target="#insert_user"></button>
                   <hr />
-                  <table class="table-condensed table-hover table-bordered table-striped ">
-                    <th>CheckBox</th>
-                    <th>FirstName</th>
-                    <th>LastName</th>
+                  <table class="table-striped table-bordered table-hover">
+                    <th>Profile Pic</th>
+                    <th>Full Name</th> 
                     <th>Gender</th>
                     <th>Age</th>
                     <th>DOB</th>
                     <th>Phone NO</th>
                     <th>City</th>
-                    <th>State</th>
-                    <th>Country</th>
                     <th>Email</th>
                     <th>Username</th>
                     <th>Status</th>
                     <th>User Type</th>
+                    <th>View User</th>
                     <th>Edit User </th>
                     <th>Delete User </th>
                   <?php 
                   while($rec = mysqli_fetch_assoc($display_user)){
                    ?>
                    
-                    <tr class="row_".<?php echo $rec['user_id']; ?>>
-                        <td><input type="checkbox" name=""></td>
-                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_firstname"><?php echo $rec['user_firstname']; ?></td>
-                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_lastname"><?php echo $rec['user_lastname']; ?></td>
+                    <tr class="row_"<?php echo $rec['user_id']; ?> >
+                        <td><img src="../user/uploads/profile/images/<?php echo $rec['img_name'];?>" height="42" width="42" alt=""></td>
+                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_fullname"><?php echo $rec['user_firstname'].' '.$rec['user_lastname']; ?></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_gender"><?php echo $rec['user_gender'] == 1 ? "Male" : "Female"; ?></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_age"><?php echo $rec['user_age']; ?></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_dob"><?php echo $rec['user_dob']; ?></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_phone"><?php echo $rec['user_phone']; ?></td> 
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_city"><?php echo $rec['user_city']; ?></td>
-                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_state"><?php echo $rec['user_state']; ?></td> 
-                        <td class="<?php echo "row_".$rec['user_id'];?>" name="user_country"><?php echo $rec['user_country']; ?></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_email"><?php echo $rec['user_email']; ?></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_username"><?php echo $rec['user_username']; ?></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_status"><?php echo $rec['user_status']; ?></td>
                         <td class="<?php echo "row_".$rec['user_id'];?>" name="user_type"><?php echo $rec['user_type']; ?></td>
-
+                        <td>
+                          <a href="#" data-toggle="modal" data-target="#view_user_modal">
+                            <button class="btn btn-default btn-view-user"
+                            value="<?php echo $rec["user_id"]; ?>"><img src="assets/img/view_user.png" alt="View user" title="View User"></button></a>
+                        </td>
+                        <td>
+                          <a href="#" data-toggle="modal" data-target="#update_user_modal"><button class="btn btn-success btn-edit" value="<?php echo $rec['user_id']; ?>"><img src="assets/img/edit_user.png" alt="Edit user" title="Edit User"></button></a>
+                        </td>
+                       
                         <?php 
                         if($rec['user_id'] == $con->disable_id){
                           ?>
-                        <td><a href="#" data-toggle="modal" data-target="#update_user_modal"><button class="btn-lg btn-success" id="btn_edit" value="<?php echo $rec['user_id']; ?>" disabled>Edit</button></a></td>
-                       
-                        <td><button class="btn-lg btn-danger" id="btn_delete" data-id="<?php echo $rec['user_id']; ?>" disabled>Delete</button></td>
+                          
+                        <td>
+                          <button class="btn btn-danger btn-delete" disabled title="Delete Disabled" value=<?php echo $rec['user_id'];?>><img src="assets/img/delete_user.png" alt="delete user" title="Delete User"></button>
+                        </td>
                         <?php 
-                        }else{
+                        }
+                        else{
                          ?>
-                         <td><a href="#" data-toggle="modal" data-target="#update_user_modal"><button class="btn-lg btn-success" id="btn_edit" value="<?php echo $rec['user_id']; ?>">Edit</button></a></td>
-                       
-                        <td><button class="btn-lg btn-danger" id="btn_delete" data-id="<?php echo $rec['user_id']; ?>">Delete</button></td>
+                        <td>
+                          <button class="btn btn-danger btn_delete" value=<?php echo $rec['user_id'];?>><img src="assets/img/delete_user.png" alt="Delete user" title="delete user"></button>
+                        </td>
                       <?php } ?>                   
                     </tr>
                    <?php
@@ -221,7 +226,7 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
                 <div class="modal-body">
                     <form method="post" action="" role="login" enctype="multipart/form-data">
                         <input type="hidden" name="user_id">
-              
+                        <br>
                         <h2 class="h2" align="center">Update Profile</h2>
                         <h5>Firstname</h5>
                         <input type="text" name="user_firstname" id="user_firstname" placeholder="Firstname" required class="form-control input-lg">
@@ -269,10 +274,6 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
 
         </div>
     </div>
-
-
-
-
 
         <!-- modal add new user-->
           <!-- Modal -->
@@ -344,7 +345,43 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
         </div>
     </div>
 
+<!-- modal view user-->
 
+<div id="view_user_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" id="modalContent">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">UPDATE USER</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped table-bordered view-user">
+                      <th>Title</th><th>Description</th>
+                      <tr><td>Profile pic</td><td name="user_pic"></td></tr>
+                      <tr><td>Firstname</td><td name="user_firstname"></td></tr>
+                      <tr><td>LastName</td><td name="user_lastname"></td></tr>
+                      <tr><td>Gender</td><td name="user_gender"></td></tr>
+                      <tr><td>Age</td><td name="user_age"></td></tr>
+                      <tr><td>DOB</td><td name="user_dob"></td></tr>
+                      <tr><td>Phone</td><td name="user_phone"></td></tr>
+                      <tr><td>City</td><td name="user_city"></td></tr>
+                      <tr><td>State</td><td name="user_state"></td></tr>
+                      <tr><td>Country</td><td name="user_country"></td></tr>
+                      <tr><td>Email</td><td name="user_email"></td></tr>
+                      <tr><td>UserName</td><td name="user_country"></td></tr>
+                      <tr><td>Status</td><td name="user_username"></td></tr>
+                      <tr><td>User Type</td><td name="user_type"></td></tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
 

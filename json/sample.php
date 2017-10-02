@@ -35,13 +35,14 @@ function myfunc (){
     },*/
     success: function(data){
             var str = JSON.stringify(data);
-            var arr = JSON.parse(str);
-            console.log(arr['user_type']);
+            //var arr = JSON.parse(str);
+            console.log(str);
           },
       error:function(){
-          $("#p").html('Password Username is Wrong');
+          //$("#p").html('Password Username is Wrong');
           //$("#result").addClass('msg_error');
          // $("#result").fadeIn(1500);
+         console.log(data);
       }   
 
     });

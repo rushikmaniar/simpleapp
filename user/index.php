@@ -79,10 +79,10 @@ if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'
 							//$name = "http://".BASE_PATH."/user/uploads/profile/images/".$last_id."_profile_pic";
 							$name = "uploads/profile/images/".$current_id."_profile_".$_FILES['file']['name'];
 							$result = move_uploaded_file($_FILES["file"]["tmp_name"], $name);
-
+							$image_name = $last_id."_profile_".$_FILES['file']['name'];
 							if($result){
 								echo $path = BASE_PATH."user/".$name;
-								$query = "UPDATE user SET user_pic = '$path' WHERE user_id=$current_id";
+								$query = "UPDATE user SET user_pic = '$path',img_name='$image_name' WHERE user_id=$current_id";
 
 								$q = mysqli_query($con->mysqli,$query);
 								if($q){
@@ -449,7 +449,7 @@ if(isset($_POST['update_password']) && $_POST['update_password'] == 'update'){
                         <h5>Update Pic</h5>
                         <label for="file"> Update Profile pic (max size : (160x160)) :  </label>
                         <br>
-                        <button><img src="http://<?php echo $user_array['user_pic']; ?>">
+                        <button name="upload_img"><img src="http://<?php echo $user_array['user_pic']; ?>">
 					<input type="file" name ="file">
 					</button>
                         <br>

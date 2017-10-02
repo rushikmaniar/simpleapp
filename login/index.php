@@ -7,8 +7,7 @@ if(isset($_REQUEST['status'])){
 if(isset($_POST['submit']) && $_POST['submit']=='login'){
 	//echo $user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
  	$user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
-
-$user_password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']);
+  $user_password = mysqli_real_escape_string($con->mysqli,$_POST['user_password']);
   $con->user_login($user_username,$user_password);
 
 }

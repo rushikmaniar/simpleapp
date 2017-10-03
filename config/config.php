@@ -118,15 +118,12 @@ class connection
 							//password not verfied
 							echo "login failed";
 						}
-				}else{
+				}
+			}else{
 						//num of rows not 1 
 						echo "login failed";
-					}
-		}
-			
-
-		}//function end
-		}
+				}
+	}//function end
 
 
 	function user_signup(

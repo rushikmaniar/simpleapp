@@ -111,7 +111,7 @@ $(".btn_delete").on("click",function(){
     var c;
     if(c = confirm("are u sure ?")){
     var user_id = $(this).val();
-    alert(user_id); 
+   // alert(user_id); 
      $.ajax({
         cache : false,
         dataType:'text',
@@ -121,7 +121,7 @@ $(".btn_delete").on("click",function(){
         success : function(data)
         {
           console.log('delete success');
-          alert("delete success");
+         // alert("delete success");
           location.reload();
             
         },

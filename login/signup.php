@@ -70,7 +70,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 			$image_name = $last_id."_profile_".$_FILES['file']['name'];
 			if($result){
 				
-				$path = str_replace('../',BASE_PATH.'/',$name);
+				$path = str_replace('../',BASE_PATH,$name);
 				$query = "UPDATE user SET user_pic = '$path',img_name='$image_name' WHERE user_id=$last_id";
 				$q = mysqli_query($con->mysqli,$query);
 				if($q){

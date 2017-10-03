@@ -34,6 +34,7 @@ class connection
 	public $disable_id;
 	public $insert_func;
 	public $signup_query;
+	public $add_query;
 	function __construct()
 	{
 		$dbhost = 'localhost';
@@ -197,7 +198,7 @@ class connection
 		$user_type){
 
 		$user_password = password_hash($user_password,PASSWORD_DEFAULT);
-		$insert_query = "
+		echo $insert_query = "
 		INSERT INTO user
 		(user_firstname,
 		user_lastname,
@@ -230,13 +231,8 @@ class connection
 		'$user_type')
 		";
 		//echo "<br><br>";
-		$this->signup_query = mysqli_query($this->mysqli,$insert_query);
-		if($this->signup_query){
-			echo "insert success";
-		}else{
-			echo "<h2 class='text-danger'> UserName Already Exists Or Something Wrong</h2>";
-			echo mysqli_error($this->mysqli);
-		}
+		$this->add_query = mysqli_query($this->mysqli,$insert_query);
+		
 	}
 
 

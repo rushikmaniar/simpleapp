@@ -114,7 +114,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 
 	<section class="container">
 			<section class="signup-form">
-				<form method="post" action="" role="login" enctype="multipart/form-data">
+				<form method="post" action="" role="login" enctype="multipart/form-data" id="signupForm">
 					<img src="assets/images/logo2.png" class="img-responsive" alt="" />
 
 					<h2 class="h2" align="center">SignUpForm</h2>
@@ -163,5 +163,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/jquery.validate.js"></script>
+	<script src="assets/js/custom.js" type="text/javascript" ></script>
 </body>
 </html>

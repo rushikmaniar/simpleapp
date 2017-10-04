@@ -2,20 +2,21 @@
 <?php require_once('../config/config.php');
 $con = new connection();
 
-if(isset($_POST['submit']) && $_POST['submit']=='signup'){
+if(isset($_POST['submit']) && $_POST['submit']=='signup')
+{
  	
- 		$user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
-		$user_lastname = mysqli_real_escape_string($con->mysqli,$_POST['user_lastname']);
-		$user_gender = mysqli_real_escape_string($con->mysqli,$_POST['user_gender']);
-		$user_age = mysqli_real_escape_string($con->mysqli,$_POST['user_age']);
-		$user_dob = mysqli_real_escape_string($con->mysqli,$_POST['user_dob']);
-		$user_phone = mysqli_real_escape_string($con->mysqli,$_POST['user_phone']);
-		$user_city = mysqli_real_escape_string($con->mysqli,$_POST['user_city']);
-		$user_state = mysqli_real_escape_string($con->mysqli,$_POST['user_state']);
-		$user_country = mysqli_real_escape_string($con->mysqli,$_POST['user_country']);
-		$user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
-		$user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
-		$user_password = password_hash(mysqli_real_escape_string($con->mysqli,$_POST['user_password']),PASSWORD_DEFAULT);
+	$user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
+	$user_lastname = mysqli_real_escape_string($con->mysqli,$_POST['user_lastname']);
+	$user_gender = mysqli_real_escape_string($con->mysqli,$_POST['user_gender']);
+	$user_age = mysqli_real_escape_string($con->mysqli,$_POST['user_age']);
+	$user_dob = mysqli_real_escape_string($con->mysqli,$_POST['user_dob']);
+	$user_phone = mysqli_real_escape_string($con->mysqli,$_POST['user_phone']);
+	$user_city = mysqli_real_escape_string($con->mysqli,$_POST['user_city']);
+	$user_state = mysqli_real_escape_string($con->mysqli,$_POST['user_state']);
+	$user_country = mysqli_real_escape_string($con->mysqli,$_POST['user_country']);
+	$user_email = mysqli_real_escape_string($con->mysqli,$_POST['user_email']);
+	$user_username = mysqli_real_escape_string($con->mysqli,$_POST['user_username']);
+	$user_password = password_hash(mysqli_real_escape_string($con->mysqli,$_POST['user_password']),PASSWORD_DEFAULT);
 	
 		
 
@@ -33,7 +34,8 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 		$user_username,
 		$user_password
  	);
- 	if($con->signup_query){
+ 	if($con->signup_query)
+ 	{
  		echo $last_id = mysqli_insert_id($con->mysqli);
  		//exit();
 
@@ -86,12 +88,15 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 			
 			}
 			
-		}
- 	}else{
- 		echo mysqli_error($con->mysqli);
- 		echo "<font class='text-danger>Something Wrong</font>'"; 
- 		//exit();
- 	}
+	}
+ 
+	else
+	{
+		echo mysqli_error($con->mysqli);
+	 	echo "<font class='text-danger'>Something Wrong</font>"; 
+	 	//exit();
+	 }
+}
  	
 ?>
 <html>
@@ -113,53 +118,53 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 <body>
 
 	<section class="container">
-			<section class="signup-form">
-				<form method="post" action="" role="login" enctype="multipart/form-data" id="signupForm">
-					<img src="assets/images/logo2.png" class="img-responsive" alt="" />
+		<section class="signup-form">
+			<form method="post" action="" role="login" enctype="multipart/form-data" id="signupForm">
+				<img src="assets/images/logo2.png" class="img-responsive" alt="" />
 
-					<h2 class="h2" align="center">SignUpForm</h2>
-					<input type="text" name="user_firstname" placeholder="Firstname" required class="form-control input-lg">
+				<h2 class="h2" align="center">SignUpForm</h2>
+				<input type="text" name="user_firstname" placeholder="Firstname" required class="form-control input-lg">
 
-					<input type="text" name="user_lastname" placeholder="LastName" required class="form-control input-lg">
-					
-					<label for="file"> Upload Profile(max size : (160x160)) :  </label><br>
-					<input type="file" name ="file"> 
+				<input type="text" name="user_lastname" placeholder="LastName" required class="form-control input-lg">
+				
+				<label for="file"> Upload Profile(max size : (160x160)) :  </label><br>
+				<input type="file" name ="file"> 
 
-					<input type="radio" name="user_gender" value="1">
-					Male
-					<input type="radio" name="user_gender" value="0">
-					Female
-					<br>
+				<input type="radio" name="user_gender" value="1">
+				Male
+				<input type="radio" name="user_gender" value="0">
+				Female
+				<br>
 
-					<input type="number" name="user_age" id="age" placeholder="Age" required class="form-control input-lg">
-					<br>
-					Date Of Birth
-					
-					<input type="date"  name="user_dob" required class="form-control input-lg" id="dob"> 
-								
-					<input type="text" name="user_phone" required class="form-control input-lg" placeholder="Phone Number">
+				<input type="number" name="user_age" id="age" placeholder="Age" required class="form-control input-lg">
+				<br>
+				Date Of Birth
+				
+				<input type="date"  name="user_dob" required class="form-control input-lg" id="dob"> 
+							
+				<input type="text" name="user_phone" required class="form-control input-lg" placeholder="Phone Number">
 
-					<input type="text" name="user_city" required class="form-control input-lg" placeholder="City">
+				<input type="text" name="user_city" required class="form-control input-lg" placeholder="City">
 
-					<input type="text" name="user_state" required class="form-control input-lg" placeholder="State">
+				<input type="text" name="user_state" required class="form-control input-lg" placeholder="State">
 
-					<input type="text" name="user_country" required class="form-control input-lg" placeholder="Country">
+				<input type="text" name="user_country" required class="form-control input-lg" placeholder="Country">
 
-					<input type="email" name="user_email" placeholder="Email" required class="form-control input-lg" />
+				<input type="email" name="user_email" placeholder="Email" required class="form-control input-lg" />
 
-					<input type="text" name="user_username" required class="form-control input-lg" placeholder="UserName">
+				<input type="text" name="user_username" required class="form-control input-lg" placeholder="UserName" id="user_username">
 
-					<input type="password" name="user_password" placeholder="Password" required class="form-control input-lg" />
+				<input type="password" name="user_password" placeholder="Password" required class="form-control input-lg" />
 
-					<button type="submit" name="submit" class="btn btn-lg btn-primary btn-block" value="signup">Sign Up</button>
-					<div>
-						<a href="index.php">Already Memeber ?</a>
-					</div>
-				</form>
-				<!--<div class="form-links">
-					<a href="#">www.website.com</a>
-				</div>-->
-			</section>
+				<button type="submit" name="submit" class="btn btn-lg btn-primary btn-block" value="signup">Sign Up</button>
+				<div>
+					<a href="index.php">Already Memeber ?</a>
+				</div>
+			</form>
+			<!--<div class="form-links">
+				<a href="#">www.website.com</a>
+			</div>-->
+		</section>
 	</section>
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

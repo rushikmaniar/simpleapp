@@ -32,7 +32,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='login'){
 
 	<section class="container">
 			<section class="login-form">
-				<form method="post" action="" role="login">
+				<form method="post" action="" role="login" id="loginForm">
 					<img src="assets/images/logo2.png" class="img-responsive" alt="" />
 					<h2 class="h2" align="center">LoginForm</h2>
 					<input type="text" name="user_username" placeholder="Username" required class="form-control input-lg" />
@@ -50,6 +50,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='login'){
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
+	<script src="assets/js/jquery.validate.js"></script>
+	<script src="assets/js/custom.js" type="text/javascript" ></script>
 </body>
 </html>

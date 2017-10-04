@@ -13,7 +13,10 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
-
+.error{
+	font-style: bold;
+	color: red;
+}
 .login-form {
     font: 16px/2em Lato, serif;
 	margin: 100px auto;

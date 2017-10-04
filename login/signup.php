@@ -131,11 +131,12 @@ if(isset($_POST['submit']) && $_POST['submit']=='signup'){
 					Female
 					<br>
 
-					<input type="number" name="user_age" placeholder="Age" required class="form-control input-lg">
-
+					<input type="number" name="user_age" id="age" placeholder="Age" required class="form-control input-lg">
+					<br>
 					Date Of Birth
-					<input type="date" name="user_dob" required class="form-control input-lg">
-
+					
+					<input type="date"  name="user_dob" required class="form-control input-lg" id="dob"> 
+								
 					<input type="text" name="user_phone" required class="form-control input-lg" placeholder="Phone Number">
 
 					<input type="text" name="user_city" required class="form-control input-lg" placeholder="City">

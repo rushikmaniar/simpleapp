@@ -1,5 +1,5 @@
 <?php session_start();?>
-<?php 
+<?php
 require_once("../config/config.php");
 $con = new connection();
 $display_query = "SELECT * FROM user";
@@ -76,13 +76,6 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
         );
 
         if($con->add_query){
-      echo "insert success";
-    }else{
-      echo "<h2 class='text-danger'> UserName Already Exists Or Something Wrong</h2>";
-      echo mysqli_error($con->mysqli);
-    }
-
-        if($con->add_query){
             echo $last_id = mysqli_insert_id($con->mysqli);
             //exit();
 
@@ -126,7 +119,8 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
                 $q = mysqli_query($con->mysqli,$query);
                 if($q){
                   echo "<font class='text-success'>Image Uploaded sucessfully</font>";
-                  header("location:index.php?status=1");
+                  echo "<script>alert('user inserted success</script>')";
+                  header("location:manage_user.php");
                 }
                 else{
                   echo mysqli_error($con->mysqli);
@@ -138,7 +132,7 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
             }
             
           }else{
-    echo mysqli_error($con->mysqli);
+    echo '<script>alert("'.mysqli_error($con->mysqli)."\")</script>";
     echo "<font class='text-danger>Something Wrong</font>'"; 
     //exit();
   }
@@ -192,7 +186,6 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
                 <ul class="nav" id="main-menu">
                  
 
-
                     <li class="active-link">
                         <a href="index.php" ><i class="fa fa-desktop "></i>Dashboard</a>
                     </li>
@@ -214,7 +207,8 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
                     <div class="col-lg-12">
                      <h2>ADMIN DASHBOARD</h2>   
                     </div>
-                </div>              
+                </div> 
+                           
                  <!-- /. ROW  -->
                  <label>Add New User</label><br>
                  <button class="btn-primary btn-lg"><img src="assets/img/add_new_user.png" alt="" data-toggle="modal" data-target="#insert_user"></button>
@@ -279,6 +273,7 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
                   }
                   ?>
                   </table>
+
                  <!-- /. ROW  --> 
            <!-- modal edit user-->         
         <!-- Modal -->

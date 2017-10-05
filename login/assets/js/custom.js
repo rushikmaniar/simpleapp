@@ -36,7 +36,7 @@ $(document).ready(function() {
 				user_email: "Please enter a valid email address",
 				user_age: "Age Should be 18 or more"
 			},submitHandler: function(form){
-				alert("form submitted");
+			///	alert("form submitted");
 			}
 		});
 
@@ -77,12 +77,15 @@ $('#signupForm').on("submit",function() {
 			$('input[name=user_username]').before('<label class="error" for="user_username">username already exists</label>');
 			return false;
 			}else{
-				alert("sign");
+				//alert("sign");
 			}
 		});
 
-$(".signup-form input[name=user_username]").on("blur",function(){
-			var user_username1 = $(this).val();
+$("#signupForm").on("submit",function(){
+			var user_username1 = $('input[name=user_username]').val();
+			var user_phone = $('input[name=user_phone]').val();
+			var user_email = $('input[name=user_phone]').val();
+
 			console.log(user_username1);
 			$.ajax({
 				url : 'check_username.php',
@@ -97,9 +100,9 @@ $(".signup-form input[name=user_username]").on("blur",function(){
 						console.log(data);
 						$('input[name=user_username]').before('<label class="error" for="user_username">username already exists</label>');
 						flag = 0;
-						//alert('test');
-						//return false;
-					}
+						return false;
+						}
+					
 				},
 				error : function(data){
 					console.log(data);

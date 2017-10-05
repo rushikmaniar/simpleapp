@@ -117,12 +117,12 @@ class connection
 							}
 						}else{
 							//password not verfied
-							echo "login failed";
+							echo "<font class='error'>login failed</font>";
 						}
 				}
 			}else{
 						//num of rows not 1 
-						echo "login failed";
+						echo "<font class='error'>login failed</font>";
 				}
 	}//function end
 

@@ -42,6 +42,8 @@ if(isset($_POST['update_profile']) && $_POST['update_profile']=='update_profile'
         $current_id
         );
 
+         header("location:manage_user.php");  
+
 }
 if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
   $user_firstname = mysqli_real_escape_string($con->mysqli,$_POST['user_firstname']);
@@ -138,6 +140,8 @@ if(isset($_POST['insert_user']) && $_POST['insert_user']=='insert_user'){
   }
 
 }
+
+
 ?>
 
 <!DOCTYPE html>

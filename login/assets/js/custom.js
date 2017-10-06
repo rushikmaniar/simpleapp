@@ -35,8 +35,6 @@ $(document).ready(function() {
 				},
 				user_email: "Please enter a valid email address",
 				user_age: "Age Should be 18 or more"
-			},submitHandler: function(form){
-			///	alert("form submitted");
 			}
 		});
 

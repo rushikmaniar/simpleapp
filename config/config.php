@@ -198,7 +198,7 @@ class connection
 		$user_type){
 
 		$user_password = password_hash($user_password,PASSWORD_DEFAULT);
-		echo $insert_query = "
+		$insert_query = "
 		INSERT INTO user
 		(user_firstname,
 		user_lastname,

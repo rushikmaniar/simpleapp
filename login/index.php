@@ -19,13 +19,12 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'login') {
 <meta name="viewport" content="width=1,initial-scale=1,user-scalable=1" />
 <title>Simple App</title>
 
-<link
-	href="http://fonts.googleapis.com/css?family=Lato:100italic,100,300italic,300,400italic,400,700italic,700,900italic,900"
+<link href="http://fonts.googleapis.com/css?family=Lato:100italic,100,300italic,300,400italic,400,700italic,700,900italic,900"
 	rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css"
-	href="assets/bootstrap/css/bootstrap.min.css" />
-    <link href="assets/js/jquery.datepick.package-5.1.0/css/jquery.datepick.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
+	href="login/assets/bootstrap/css/bootstrap.min.css" />
+    <link href="login/assets/js/jquery.datepick.package-5.1.0/css/jquery.datepick.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="login/assets/css/styles.css" />
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -47,7 +46,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'login') {
 				<button type="submit" name="submit"
 					class="btn btn-lg btn-primary btn-block" value="login">Sign in</button>
 				<div>
-					<a href="signup.php">Not Memeber ?</a> or <a href="reset.php">reset
+					<a href="javascript:void(0)" id="not-member-btn" onclick="not_member()">Not Memeber ?</a> or <a href="">reset
 						password</a>
 				</div>
 			</form>
@@ -59,10 +58,10 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'login') {
 
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-	 <script src="assets/js/jquery.datepick.package-5.1.0/js/jquery.plugin.min.js"></script>
-    <script src="assets/js/jquery.datepick.package-5.1.0/js/jquery.datepick.js"></script>
-	<script src="assets/js/jquery.validate.js"></script>
-	<script src="assets/js/custom.js" type="text/javascript"></script>
+	<script src="login/assets/bootstrap/js/bootstrap.min.js"></script>
+	 <script src="login/assets/js/jquery.datepick.package-5.1.0/js/jquery.plugin.min.js"></script>
+    <script src="login/assets/js/jquery.datepick.package-5.1.0/js/jquery.datepick.js"></script>
+	<script src="login/assets/js/jquery.validate.js"></script>
+	<script src="login/assets/js/custom.js" type="text/javascript"></script>
 </body>
 </html>

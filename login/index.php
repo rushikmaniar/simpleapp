@@ -24,6 +24,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'login') {
 	rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css"
 	href="assets/bootstrap/css/bootstrap.min.css" />
+    <link href="assets/js/jquery.datepick.package-5.1.0/css/jquery.datepick.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -59,6 +60,8 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'login') {
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	 <script src="assets/js/jquery.datepick.package-5.1.0/js/jquery.plugin.min.js"></script>
+    <script src="assets/js/jquery.datepick.package-5.1.0/js/jquery.datepick.js"></script>
 	<script src="assets/js/jquery.validate.js"></script>
 	<script src="assets/js/custom.js" type="text/javascript"></script>
 </body>

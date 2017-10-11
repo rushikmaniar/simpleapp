@@ -1,11 +1,18 @@
 var flag = 1;
 $(document).ready(function() {
+	$('#dob').datepick({dateFormat: 'yyyy-mm-dd'});
 
 // validate signup form on keyup and submit
-		$("#signupForm").validate({
+$("#submitbtn").on("click",function(){
+$("#signupForm").validate({
+		
 			rules: {
-				user_firstname: "required",
-				user_lastname: "required",
+				user_firstname: {
+					required: true
+				},
+				user_lastname:{
+					required: true
+				},
 				user_username: {
 					required: true,
 					minlength: 1
@@ -115,10 +122,10 @@ $(document).ready(function() {
 						console.log('error');
 					}
 				});
-			}
+				}
 		});
+});
 	});
-
 
 		$("#loginForm").validate({
 			rules: {
@@ -142,7 +149,6 @@ $(document).ready(function() {
 				},
 			}
 		});
-
 /*$("#testId").validate({
 	rules:{
 		faqir : {
